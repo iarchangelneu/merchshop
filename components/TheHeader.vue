@@ -2,7 +2,8 @@
     <header>
         <div class="headerbody">
             <div class="dnone"></div>
-            <img style="margin-left: 120px" src="@/assets/img/headerlogo.svg" alt="">
+            <NuxtLink to="/"> <img style="margin-left: 120px" src="@/assets/img/headerlogo.svg" alt=""></NuxtLink>
+
 
             <div class="right">
                 <img src="@/assets/img/cart.svg" alt="">
