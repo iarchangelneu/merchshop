@@ -1,29 +1,46 @@
 <template>
     <header>
-        <div class="dnone"></div>
-        <img src="@/assets/img/headerlogo.svg" alt="">
+        <div class="headerbody">
+            <div class="dnone"></div>
+            <img style="margin-left: 120px" src="@/assets/img/headerlogo.svg" alt="">
 
-        <div class="right">
-            <img src="@/assets/img/cart.svg" alt="">
-            <img src="@/assets/img/account.svg" alt="">
-            <img src="@/assets/img/cash.svg" alt="">
+            <div class="right">
+                <img src="@/assets/img/cart.svg" alt="">
+                <img src="@/assets/img/account.svg" alt="">
+                <img src="@/assets/img/cash.svg" alt="">
 
-            <div class="burg">
-                <input id="menu__toggle" class="d-none" type="checkbox" />
-                <label class="menu__btn" for="menu__toggle" @click="menuOpen = !menuOpen">
-                    <span></span>
-                </label>
+                <div class="burg">
+                    <input id="menu__toggle" class="d-none" type="checkbox" />
+                    <label class="menu__btn" for="menu__toggle" @click="menuOpen = !menuOpen">
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+            <div class="headermenu" :class="{ opened: menuOpen }">
+
+                <div class="links">
+                    <NuxtLink to="/#sales">Акции и скидки</NuxtLink>
+                    <NuxtLink to="/catalog">Каталог</NuxtLink>
+                    <NuxtLink to="/about">о нас</NuxtLink>
+                </div>
+
+                <NuxtLink to="/login" class="login">Войти / регистрация</NuxtLink>
             </div>
         </div>
-        <div class="headermenu" :class="{ opened: menuOpen }">
-
-            <div class="links">
-                <NuxtLink to="/#sales">Акции и скидки</NuxtLink>
-                <NuxtLink to="/catalog">Каталог</NuxtLink>
-                <NuxtLink to="/about">о нас</NuxtLink>
-            </div>
-
-            <NuxtLink to="/login" class="login">Войти / регистрация</NuxtLink>
+        <div class="categories" :style="{
+            '--categories-opacity': isCategoriesVisible ? '1' : '0',
+            '--categories-pointer-events': isCategoriesVisible ? 'auto' : 'none',
+        }" v-if="isCategoriesVisible">
+            <NuxtLink to="/catalog">Стикеры</NuxtLink>
+            <NuxtLink to="/catalog">Одежда</NuxtLink>
+            <NuxtLink to="/catalog">Чехлы на телефон</NuxtLink>
+            <NuxtLink to="/catalog">Постеры</NuxtLink>
+            <NuxtLink to="/catalog">Для дома</NuxtLink>
+            <NuxtLink to="/catalog">Аксессуары</NuxtLink>
+            <NuxtLink to="/catalog">Для питомцев</NuxtLink>
+            <NuxtLink to="/catalog">Канцелярия</NuxtLink>
+            <NuxtLink to="/catalog">Для детей</NuxtLink>
+            <NuxtLink to="/catalog">Подарочные наборы</NuxtLink>
         </div>
     </header>
 </template>
@@ -32,22 +49,68 @@ export default {
     data() {
         return {
             menuOpen: false,
+            isCategoriesVisible: true,
+            lastScrollTop: 0,
         }
-    }
+    },
+    mounted() {
+        window.addEventListener("scroll", this.handleScroll);
+    },
+    methods: {
+        handleScroll() {
+            const currentScrollTop = window.scrollY;
+
+            if (currentScrollTop > this.lastScrollTop) {
+                this.isCategoriesVisible = false;
+            } else {
+                this.isCategoriesVisible = true;
+            }
+
+            this.lastScrollTop = currentScrollTop;
+        },
+    },
+    beforeDestroy() {
+        window.removeEventListener("scroll", this.handleScroll);
+    },
 }
 </script>
 <style lang="scss" scoped>
 header {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     position: fixed;
     width: 100%;
     padding: 21px 100px;
     z-index: 100;
     background: #FFFFF3;
+
+    .categories {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin-top: 25px;
+
+        transition: all .3s ease;
+
+        a {
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-transform: uppercase;
+            font-family: var(--int);
+            color: #000;
+        }
+
+        opacity: var(--categories-opacity, 1);
+        pointer-events: var(--categories-pointer-events, auto);
+    }
+
+    .headerbody {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
     .opened {
         transform: rotate3d(1, 1, 1, 0) !important;
@@ -56,7 +119,7 @@ header {
     .headermenu {
         position: absolute;
         top: 100%;
-        right: 5%;
+        right: 0;
         transform: rotate3d(1, 1, 1, -240deg);
         perspective: 400px;
         transition: all .5s ease;

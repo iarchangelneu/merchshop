@@ -936,7 +936,7 @@ useSeoMeta({
 }
 
 .main {
-    padding: 120px 100px 10px;
+    padding: 150px 100px 10px;
 
     .main__body {
         opacity: 0.8;
