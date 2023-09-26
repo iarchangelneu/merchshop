@@ -1,5 +1,5 @@
 <template>
-    <footer>
+    <footer v-if="!hideFooterOnPages.includes($route.name)">
         <NuxtLink to="/">
             <img src="@/assets/img/footerlogo.svg">
         </NuxtLink>
@@ -16,6 +16,15 @@
         </div>
     </footer>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            hideFooterOnPages: ['login', 'register'],
+        }
+    }
+}
+</script>
 <style lang="scss">
 footer {
     display: flex;

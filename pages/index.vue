@@ -732,7 +732,7 @@ useSeoMeta({
                 background: #fff;
 
                 img {
-                    width: 300px;
+                    width: 100%;
                     height: 290px;
                     object-fit: cover;
                 }
