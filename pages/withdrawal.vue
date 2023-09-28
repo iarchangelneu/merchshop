@@ -91,10 +91,18 @@ useSeoMeta({
     align-items: center;
     //  height: 100vh;
 
+    @media (max-width: 1024px) {
+        padding: 150px 20px 60px;
+    }
+
     .money__body {
         border: 2px solid #D2D2D2;
         background: #fff;
         padding: 30px;
+
+        @media (max-width: 1024px) {
+            padding: 20px 10px;
+        }
 
         .card {
             background: 0;
@@ -158,6 +166,10 @@ useSeoMeta({
                 line-height: 130%;
                 font-family: var(--int);
                 color: #000;
+
+                @media (max-width: 1024px) {
+                    max-width: 155px;
+                }
             }
 
             button {
@@ -185,11 +197,20 @@ useSeoMeta({
             font-family: var(--int);
             color: #000;
             max-width: 535px;
+
+            @media (max-width: 1024px) {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
         }
 
         .type {
             display: flex;
             margin-bottom: 20px;
+
+            @media (max-width: 1024px) {
+                margin-bottom: 0;
+            }
 
             a {
                 flex: 1;
@@ -206,6 +227,12 @@ useSeoMeta({
                 font-family: var(--int);
                 color: #fff;
 
+                @media (max-width: 1024px) {
+                    font-size: 16px;
+                    padding: 16px 0;
+                    margin-bottom: 13px;
+                }
+
                 &:first-child {
                     background: #fff;
                     color: #000;
@@ -221,20 +248,20 @@ useSeoMeta({
             font-family: var(--int);
             color: #000;
             margin-bottom: 20px;
+
+            @media (max-width: 1024px) {
+                font-size: 24px;
+            }
         }
     }
 }
 
-// .custom-checkbox p {
-//     font-family: var(--int);
-//     font-size: 16px;
-//     font-style: normal;
-//     font-weight: 400;
-//     line-height: 130%;
-//     color: #000;
-//     white-space: nowrap;
-//     text-transform: uppercase;
-// }
+.custom-checkbox p,
+.custom-checkbox a {
+    @media (max-width: 1024px) {
+        font-size: 12px !important;
+    }
+}
 
 .custom-checkbox input[type="checkbox"] {
     opacity: 0;

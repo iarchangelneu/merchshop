@@ -3,13 +3,14 @@
         <div class="header__block">
             <div class="headerbody">
                 <div class="dnone"></div>
-                <NuxtLink to="/"> <img style="margin-left: 120px" src="@/assets/img/headerlogo.svg" alt=""></NuxtLink>
+                <NuxtLink to="/"> <img style="margin-left: 120px" class="logo" src="@/assets/img/headerlogo.svg" alt="">
+                </NuxtLink>
 
 
                 <div class="right">
                     <img src="@/assets/img/cart.svg" style="cursor: pointer;" alt="" @click.stop="toggleCart">
                     <img src="@/assets/img/account.svg" alt="">
-                    <img src="@/assets/img/cash.svg" alt="">
+                    <img src="@/assets/img/cash.svg" class="cash" alt="">
 
                     <div class="burg">
                         <input id="menu__toggle" class="d-none" type="checkbox" />
@@ -24,9 +25,45 @@
                         <NuxtLink to="/#sales">Акции и скидки</NuxtLink>
                         <NuxtLink to="/catalog">Каталог</NuxtLink>
                         <NuxtLink to="/about">о нас</NuxtLink>
+                        <NuxtLink to="/refill" class="refill">Кошелек <img src="@/assets/img/cash.svg" alt=""></NuxtLink>
+                        <small>14000 ₸</small>
                     </div>
 
                     <NuxtLink to="/login" class="login">Войти / регистрация</NuxtLink>
+
+                    <div class="links moblinks">
+                        <NuxtLink to="/catalog/?category=stickers"
+                            :class="{ 'link--active': $route.query.category === 'stickers' }">
+                            Стикеры</NuxtLink>
+                        <NuxtLink to="/catalog/?category=cloth"
+                            :class="{ 'link--active': $route.query.category === 'cloth' }">
+                            Одежда
+                        </NuxtLink>
+                        <NuxtLink to="/catalog/?category=cases"
+                            :class="{ 'link--active': $route.query.category === 'cases' }">Чехлы
+                            на
+                            телефон</NuxtLink>
+                        <NuxtLink to="/catalog/?category=posters"
+                            :class="{ 'link--active': $route.query.category === 'posters' }">
+                            Постеры</NuxtLink>
+                        <NuxtLink to="/catalog/?category=households"
+                            :class="{ 'link--active': $route.query.category === 'households' }">Для дома</NuxtLink>
+                        <NuxtLink to="/catalog/?category=accessories"
+                            :class="{ 'link--active': $route.query.category === 'accessories' }">Аксессуары</NuxtLink>
+                        <NuxtLink to="/catalog/?category=pets"
+                            :class="{ 'link--active': $route.query.category === 'pets' }">Для
+                            питомцев</NuxtLink>
+                        <NuxtLink to="/catalog/?category=office"
+                            :class="{ 'link--active': $route.query.category === 'office' }">
+                            Канцелярия</NuxtLink>
+                        <NuxtLink to="/catalog/?category=kids"
+                            :class="{ 'link--active': $route.query.category === 'kids' }">Для
+                            детей
+                        </NuxtLink>
+                        <NuxtLink to="/catalog/?category=gifts"
+                            :class="{ 'link--active': $route.query.category === 'gifts' }">
+                            Подарочные наборы</NuxtLink>
+                    </div>
                 </div>
 
             </div>
@@ -168,6 +205,34 @@ header {
         transform: rotate3d(1, 0, 0, 0deg) !important;
     }
 
+    .refill {
+        display: none;
+
+        @media(max-width: 1024px) {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+
+    .dnone {
+        @media (max-width: 1024px) {
+            display: none;
+        }
+    }
+
+    .cash {
+        @media (max-width: 1024px) {
+            display: none;
+        }
+    }
+
+    .logo {
+        @media (max-width: 1024px) {
+            margin: 0 !important;
+        }
+    }
+
     .cart {
         position: fixed;
         right: 0;
@@ -183,6 +248,16 @@ header {
         border-top: 2px solid #D2D2D2;
         border-bottom: 2px solid #D2D2D2;
         border-left: 2px solid #D2D2D2;
+
+        @media (max-width: 1600px) {
+            width: 45%;
+        }
+
+        @media (max-width: 1024px) {
+            width: 100%;
+            padding: 20px;
+            border: 0 !important;
+        }
 
         .cart__footer {
             a {
@@ -205,7 +280,7 @@ header {
 
             .cart__item {
                 display: flex;
-                align-items: start;
+                align-items: flex-start;
                 gap: 20px;
                 margin-bottom: 30px;
 
@@ -213,6 +288,11 @@ header {
                     width: 185px;
                     height: 167px;
                     object-fit: cover;
+
+                    @media (max-width: 1024px) {
+                        width: 95px;
+                        height: 95px;
+                    }
                 }
 
                 div {
@@ -227,6 +307,10 @@ header {
                         font-family: var(--int);
                         color: #000;
                         margin: 0;
+
+                        @media (max-width: 1024px) {
+                            font-size: 16px;
+                        }
                     }
 
                     .price {
@@ -256,6 +340,10 @@ header {
             align-items: center;
             margin-bottom: 30px;
 
+            @media (max-width: 1024px) {
+                margin-bottom: 20px;
+            }
+
             h1 {
                 font-size: 32px;
                 font-style: normal;
@@ -265,6 +353,10 @@ header {
                 font-family: var(--int);
                 color: #000;
                 margin: 0;
+
+                @media (max-width: 1024px) {
+                    font-size: 20px;
+                }
             }
         }
     }
@@ -275,6 +367,14 @@ header {
         padding: 21px 100px;
         z-index: 100;
         background: #FFFFF3;
+
+        @media (max-width: 1600px) {
+            padding: 21px 50px;
+        }
+
+        @media (max-width: 1024px) {
+            padding: 21px 20px;
+        }
     }
 
     .categories {
@@ -283,6 +383,10 @@ header {
         align-items: center;
         gap: 40px;
         margin-top: 25px;
+
+        @media (max-width: 1430px) {
+            display: none;
+        }
 
         transition: all .3s ease;
 
@@ -294,6 +398,10 @@ header {
             text-transform: uppercase;
             font-family: var(--int);
             color: #000;
+
+            @media (max-width: 1600px) {
+                font-size: 14px;
+            }
         }
 
         opacity: var(--categories-opacity, 1);
@@ -323,6 +431,23 @@ header {
         background: #fff;
         padding: 30px;
 
+        @media (max-width: 1024px) {
+            width: 100%;
+        }
+
+        .moblinks {
+            display: none !important;
+            margin-top: 20px;
+
+            @media (max-width: 1430px) {
+                display: flex !important;
+            }
+
+            a {
+                font-weight: 400 !important;
+            }
+        }
+
         .links {
             display: flex;
             flex-direction: column;
@@ -339,9 +464,20 @@ header {
             color: #000;
         }
 
+        small {
+            font-family: var(--nt);
+            color: #000;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
         .login {
             margin: 74px 0 0 !important;
             display: inline-block;
+
+            @media (max-width: 1430px) {
+                margin: 20px 0 0 !important;
+            }
         }
     }
 

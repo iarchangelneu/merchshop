@@ -2,10 +2,12 @@
     <div class="catalog">
         <h1 v-if="category == 'catalog'">каталог</h1>
         <div class="category__block" v-else>
-            <img :src="getImage1(category)" alt="" class="img-fluid">
+            <img src="@/assets/img/catmob1.png" class="catimgmob" alt="">
+            <img :src="getImage1(category)" alt="" class="img-fluid catimgpc">
             <h2>{{ getCategoryName(category) }}</h2>
             <h1>{{ getCategoryName(category) }}</h1>
-            <img :src="getImage2(category)" alt="" class="img-fluid">
+            <img :src="getImage2(category)" alt="" class="img-fluid catimgpc">
+            <img src="@/assets/img/catmob2.png" class="catimgmob" alt="">
         </div>
 
         <div class="sort__body">
@@ -310,6 +312,14 @@ useSeoMeta({
 .catalog {
     padding: 150px 100px 60px;
 
+    @media (max-width: 1600px) {
+        padding: 150px 50px 60px;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 100px 20px 60px;
+    }
+
     .showmore {
         margin-top: 30px;
 
@@ -334,6 +344,11 @@ useSeoMeta({
         gap: 35px;
         grid-auto-flow: dense;
 
+        @media (max-width: 1024px) {
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+        }
+
         .catalog__block {
             background: #fff;
             text-decoration: none;
@@ -341,12 +356,20 @@ useSeoMeta({
             padding: 10px;
             display: flex;
             flex-direction: column;
-            max-width: 340px;
+            max-width: 100%;
+
+            @media (max-width: 1024px) {
+                max-width: 100%;
+            }
 
             img {
                 width: 100%;
                 height: 214px;
                 object-fit: cover;
+
+                @media (max-width: 1024px) {
+                    height: 130px;
+                }
 
             }
 
@@ -359,6 +382,10 @@ useSeoMeta({
                 font-family: var(--int);
                 color: #000;
                 margin-top: 10px;
+
+                @media (max-width: 1024px) {
+                    font-size: 10px;
+                }
             }
 
             .price {
@@ -378,6 +405,10 @@ useSeoMeta({
                         text-transform: uppercase;
                         font-family: var(--int);
                         color: #000;
+
+                        @media (max-width: 1024px) {
+                            font-size: 12px;
+                        }
                     }
 
                     small {
@@ -390,6 +421,10 @@ useSeoMeta({
                         font-family: var(--int);
                         color: #828282;
                         margin-bottom: 4px;
+
+                        @media (max-width: 1024px) {
+                            font-size: 10px;
+                        }
                     }
                 }
 
@@ -400,7 +435,11 @@ useSeoMeta({
                     line-height: normal;
                     text-transform: uppercase;
                     font-family: var(--int);
-                    color: #000;
+                    color: #828282;
+
+                    @media (max-width: 1024px) {
+                        font-size: 12px;
+                    }
                 }
             }
         }
@@ -510,12 +549,31 @@ useSeoMeta({
         position: relative;
         opacity: 0.8;
         border-radius: 20px;
-        background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
+        // background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
         background-color: #F7BFCA;
         padding: 25px 9.427vw 54px;
 
         display: flex;
         justify-content: space-between;
+
+        @media (max-width: 1024px) {
+            padding: 34px 17px 34px 33px;
+        }
+
+        .catimgpc {
+            @media (max-width: 1024px) {
+                display: none;
+            }
+        }
+
+        .catimgmob {
+            display: none;
+
+            @media (max-width: 1024px) {
+                display: block;
+                margin-top: 0 !important;
+            }
+        }
 
         img {
             &:last-child {
@@ -543,12 +601,22 @@ useSeoMeta({
             color: #fff;
             font-weight: 400;
             top: 44%;
+
+            @media (max-width:1024px) {
+                font-size: 20px;
+                top: 46%;
+            }
         }
 
         h2 {
             color: #000;
             top: 44.5%;
             font-weight: 600;
+
+            @media (max-width:1024px) {
+                font-size: 20px;
+                top: 46.5%;
+            }
         }
     }
 }

@@ -131,6 +131,14 @@ useSeoMeta({
 .seller {
     padding: 150px 100px 60px;
 
+    @media (max-width: 1600px) {
+        padding: 150px 50px 60px;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 100px 20px 60px;
+    }
+
     .seller__products {
         .showmore {
             margin-top: 30px;
@@ -156,6 +164,12 @@ useSeoMeta({
             gap: 35px;
             grid-auto-flow: dense;
 
+            @media (max-width: 1024px) {
+                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            }
+
+
             .similar__block {
                 background: #fff;
                 text-decoration: none;
@@ -163,12 +177,20 @@ useSeoMeta({
                 padding: 10px;
                 display: flex;
                 flex-direction: column;
-                max-width: 340px;
+                max-width: 100%;
+
+                @media (max-width: 1024px) {
+                    max-width: 100%;
+                }
 
                 img {
                     width: 100%;
                     height: 214px;
                     object-fit: cover;
+
+                    @media (max-width: 1024px) {
+                        height: 130px;
+                    }
 
                 }
 
@@ -181,6 +203,10 @@ useSeoMeta({
                     font-family: var(--int);
                     color: #000;
                     margin-top: 10px;
+
+                    @media (max-width: 1024px) {
+                        font-size: 10px;
+                    }
                 }
 
                 .price {
@@ -200,6 +226,10 @@ useSeoMeta({
                             text-transform: uppercase;
                             font-family: var(--int);
                             color: #000;
+
+                            @media (max-width: 1024px) {
+                                font-size: 12px;
+                            }
                         }
 
                         small {
@@ -212,6 +242,10 @@ useSeoMeta({
                             font-family: var(--int);
                             color: #828282;
                             margin-bottom: 4px;
+
+                            @media (max-width: 1024px) {
+                                font-size: 10px;
+                            }
                         }
                     }
 
@@ -222,7 +256,11 @@ useSeoMeta({
                         line-height: normal;
                         text-transform: uppercase;
                         font-family: var(--int);
-                        color: #000;
+                        color: #828282;
+
+                        @media (max-width: 1024px) {
+                            font-size: 12px;
+                        }
                     }
                 }
             }
@@ -244,6 +282,12 @@ useSeoMeta({
         display: flex;
         gap: 30px;
         align-items: flex-start;
+
+        @media (max-width: 1024px) {
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
 
         .seller__desc {
             div {
@@ -270,6 +314,11 @@ useSeoMeta({
             width: 320px;
             height: 275px;
             object-fit: cover;
+
+            @media (max-width: 1024px) {
+                width: 100%;
+                height: 300px;
+            }
         }
     }
 
@@ -282,6 +331,10 @@ useSeoMeta({
         font-family: var(--int);
         color: #000;
         margin: 10px 0 30px;
+
+        @media (max-width: 1024px) {
+            font-size: 20px;
+        }
     }
 }
 </style>

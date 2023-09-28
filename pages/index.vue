@@ -2,7 +2,8 @@
     <div class="main">
         <div class="main__body">
             <div class="main__block text-center">
-                <img class="img-fluid" src="@/assets/img/main.png" alt="">
+                <img class="img-fluid mainpc" src="@/assets/img/main.png" alt="">
+                <img src="@/assets/img/mainmob.svg" class="mainmob" alt="">
                 <h2>Подарки для себя и близких</h2>
                 <h1>Подарки для себя и близких</h1>
                 <h3>merchshop.kz - помощник на все знаковые события </h3>
@@ -540,6 +541,7 @@ export default {
             },
         }
     },
+
 }
 </script>
 <script setup>
@@ -554,11 +556,25 @@ useSeoMeta({
 .page {
     padding: 0 100px 10px;
 
+    @media (max-width: 1600px) {
+        padding: 0 50px 10px;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 0 20px 60px;
+    }
+
     .reviews {
         margin-top: 10px;
         padding: 30px 20px;
         border-radius: 20px;
         border: 2px solid #D2D2D2;
+
+        @media (max-width: 1024px) {
+            border: 0;
+            padding: 0;
+
+        }
 
 
         .reviews__slider {
@@ -570,7 +586,7 @@ useSeoMeta({
                 height: 215px;
 
                 padding: 20px 20px 15px;
-                background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
+                // background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
                 background-color: #F7BFCA;
                 border-radius: 20px;
 
@@ -584,6 +600,10 @@ useSeoMeta({
                     font-family: var(--int);
                     color: #fff;
                     margin-bottom: 10px;
+
+                    @media (max-width: 1024px) {
+                        font-size: 16px;
+                    }
                 }
 
                 p {
@@ -623,6 +643,10 @@ useSeoMeta({
             font-family: var(--int);
             color: #000;
             margin-bottom: 22px;
+
+            @media (max-width: 1024px) {
+                font-size: 20px;
+            }
         }
 
     }
@@ -631,6 +655,14 @@ useSeoMeta({
         position: relative;
         margin-top: 10px;
         height: 550px;
+
+        @media (max-width: 1200px) {
+            height: 360px;
+        }
+
+        @media (max-width: 1024px) {
+            height: 550px;
+        }
 
         .white {
             position: absolute;
@@ -641,6 +673,19 @@ useSeoMeta({
             height: 489px;
             width: 86.458vw;
             z-index: 1;
+
+            @media (max-width: 1200px) {
+                height: 300px;
+            }
+
+            @media (max-width: 1024px) {
+                width: 85vw;
+            }
+
+            @media (max-width: 500px) {
+                height: 490px;
+                width: 310px;
+            }
         }
 
         .yellow {
@@ -653,6 +698,21 @@ useSeoMeta({
             height: 489px;
             width: 86.458vw;
             z-index: 2;
+
+            @media (max-width: 1200px) {
+                height: 300px;
+            }
+
+            @media (max-width: 1024px) {
+                width: 85vw;
+            }
+
+            @media (max-width: 500px) {
+                height: 490px;
+                width: 310px;
+                top: 20px;
+                right: 20px;
+            }
         }
 
         .purple {
@@ -663,13 +723,40 @@ useSeoMeta({
             position: absolute;
             right: 60px;
             top: 60px;
-            background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
+            // background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
             background-color: #F7BFCA;
             z-index: 3;
             border-radius: 20px;
             border: 0;
             height: 489px;
             width: 86.458vw;
+
+            @media (max-width: 1200px) {
+                height: 300px;
+            }
+
+            @media (max-width: 1024px) {
+                width: 85vw;
+            }
+
+            @media (max-width: 500px) {
+                height: 490px;
+                width: 310px;
+                padding: 20px 20px 30px;
+                right: 40px;
+                top: 40px;
+            }
+
+            img {
+                @media (max-width: 1430px) {
+                    max-width: 50% !important;
+                    height: auto;
+                }
+
+                @media (max-width: 1200px) {
+                    display: none;
+                }
+            }
 
 
             h1 {
@@ -680,6 +767,15 @@ useSeoMeta({
                 font-family: var(--int);
                 color: #000;
                 margin-bottom: 22px;
+
+                @media (max-width: 1430px) {
+                    font-size: 35px;
+                }
+
+                @media (max-width: 1024px) {
+                    font-size: 20px;
+                }
+
             }
 
             p {
@@ -692,6 +788,17 @@ useSeoMeta({
                 color: #000;
                 margin-bottom: 20px;
                 max-width: 832px;
+
+                @media (max-width: 1430px) {
+                    font-size: 16px;
+                }
+
+                @media (max-width: 1024px) {
+                    font-size: 16px;
+                    max-width: none;
+                }
+
+
             }
 
             a {
@@ -716,11 +823,22 @@ useSeoMeta({
         border-radius: 20px;
         border: 2px solid #D2D2D2;
 
+        @media (max-width: 1024px) {
+            border: 0;
+            padding: 0;
+            margin-top: 20px;
+        }
+
         .categories__body {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             grid-auto-flow: dense;
+
+
+            @media (max-width: 1024px) {
+                grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            }
 
 
             .categories__block {
@@ -735,6 +853,10 @@ useSeoMeta({
                     width: 100%;
                     height: 290px;
                     object-fit: cover;
+
+                    @media (max-width: 1024px) {
+                        height: 130px;
+                    }
                 }
 
                 h1 {
@@ -746,6 +868,11 @@ useSeoMeta({
                     font-family: var(--int);
                     color: #000;
                     margin-top: 10px;
+
+                    @media (max-width: 1024px) {
+                        font-size: 10px;
+                        margin-bottom: 10px;
+                    }
                 }
 
             }
@@ -760,6 +887,10 @@ useSeoMeta({
             font-family: var(--int);
             color: #000;
             margin-bottom: 22px;
+
+            @media (max-width: 1024px) {
+                font-size: 20px;
+            }
         }
     }
 
@@ -768,6 +899,12 @@ useSeoMeta({
         padding: 30px 20px 20px;
         border-radius: 20px;
         border: 2px solid #D2D2D2;
+
+        @media (max-width: 1024px) {
+            border: 0;
+            padding: 0;
+            margin-top: 20px;
+        }
 
         a {
             font-size: 16px;
@@ -782,6 +919,10 @@ useSeoMeta({
             padding: 10px 20px;
             background: transparent;
             border: 1px solid #D2D2D2;
+
+            @media (max-width: 1024px) {
+                display: none;
+            }
         }
 
         .sales__body {
@@ -793,6 +934,25 @@ useSeoMeta({
                 gap: 32px;
                 margin-bottom: 30px;
 
+                @media (max-width: 1800px) {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+                    gap: 35px;
+                    grid-auto-flow: dense;
+                }
+
+                @media (max-width: 1024px) {
+                    gap: 20px;
+                    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                    margin-bottom: 20px;
+                }
+
+                @media (max-width: 830px) {
+                    gap: 20px;
+                    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+                    margin-bottom: 20px;
+                }
+
                 .sales__block {
                     background: #fff;
                     text-decoration: none;
@@ -802,12 +962,43 @@ useSeoMeta({
                     flex-direction: column;
                     max-width: 340px;
 
+                    @media (max-width: 1800px) {
+                        max-width: 100%;
+                    }
+
                     &:last-child {
                         max-width: 560px;
+
+                        @media (max-width: 1800px) {
+                            max-width: 100%;
+                            display: none;
+                        }
+
+                        @media (max-width: 1250px) {
+                            display: flex;
+                        }
+
+                        @media (max-width: 1024px) {
+                            display: none;
+                        }
+
+                        @media (max-width: 830px) {
+                            display: flex;
+                        }
 
                         img {
                             width: 540px;
                             height: 290px;
+                            object-fit: cover;
+
+                            @media (max-width: 1800px) {
+                                width: 100%;
+                                height: 290px;
+                            }
+
+                            @media (max-width: 1024px) {
+                                height: 130px;
+                            }
                         }
                     }
 
@@ -816,6 +1007,13 @@ useSeoMeta({
                         height: 290px;
                         object-fit: cover;
 
+                        @media (max-width: 1800px) {
+                            width: 100%;
+                        }
+
+                        @media (max-width: 1024px) {
+                            height: 130px;
+                        }
                     }
 
                     h1 {
@@ -827,6 +1025,10 @@ useSeoMeta({
                         font-family: var(--int);
                         color: #000;
                         margin-top: 10px;
+
+                        @media (max-width: 1024px) {
+                            font-size: 10px;
+                        }
                     }
 
                     .price {
@@ -846,6 +1048,10 @@ useSeoMeta({
                                 text-transform: uppercase;
                                 font-family: var(--int);
                                 color: #000;
+
+                                @media (max-width: 1024px) {
+                                    font-size: 12px;
+                                }
                             }
 
                             small {
@@ -858,6 +1064,10 @@ useSeoMeta({
                                 font-family: var(--int);
                                 color: #828282;
                                 margin-bottom: 4px;
+
+                                @media (max-width: 1024px) {
+                                    font-size: 12px;
+                                }
                             }
                         }
 
@@ -868,7 +1078,11 @@ useSeoMeta({
                             line-height: normal;
                             text-transform: uppercase;
                             font-family: var(--int);
-                            color: #000;
+                            color: #828282;
+
+                            @media (max-width: 1024px) {
+                                font-size: 12px;
+                            }
                         }
                     }
                 }
@@ -884,30 +1098,33 @@ useSeoMeta({
             font-family: var(--int);
             color: #000;
             margin-bottom: 22px;
+
+            @media (max-width: 1024px) {
+                font-size: 20px;
+            }
         }
     }
 }
 
 .line {
     background: #FDED01;
+    // overflow: hidden;
 }
 
 .running-text {
     min-height: 40px;
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
     position: relative;
     padding-top: 7px;
+    white-space: nowrap;
 }
 
 .text-container {
-    display: inline-block;
-    animation: marquee 15s linear infinite;
+    display: flex;
+    animation: marquee 45s linear infinite;
 }
 
 .text-segment {
-    display: inline-block;
     margin-right: 15px;
     font-size: 16px;
     font-style: normal;
@@ -916,33 +1133,38 @@ useSeoMeta({
     text-transform: uppercase;
     font-family: var(--int);
     color: #000;
-    /* Расстояние между сегментами текста */
 }
 
 .divider {
-    display: inline-block;
     margin-right: 15px;
-    /* Расстояние между разделителями (точками) */
 }
 
 @keyframes marquee {
     0% {
-        transform: translateX(100%);
+        transform: translateX(0);
     }
 
     100% {
-        transform: translateX(-100%);
+        transform: translateX(calc(-100% + 1rem));
     }
 }
 
 .main {
     padding: 150px 100px 10px;
 
+    @media (max-width: 1600px) {
+        padding: 150px 50px 10px;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 100px 20px 10px;
+    }
+
     .main__body {
         opacity: 0.8;
         border-radius: 20px;
         //  mix-blend-mode: overlay;
-        background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
+        // background: url('@/assets/img/tex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
         background-color: #F7BFCA;
 
         //   height: 100vh;
@@ -950,12 +1172,39 @@ useSeoMeta({
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
 
         padding: 77px 111px;
+
+        @media (max-width: 1024px) {
+            padding: 0 10px 33px;
+        }
 
         .main__block {
             position: relative;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            .mainmob {
+                display: none;
+                align-items: center;
+                width: 100%;
+
+                @media (max-width: 1024px) {
+                    display: block;
+                }
+            }
+
+            .mainpc {
+                display: block;
+
+                @media (max-width: 1024px) {
+                    display: none;
+                }
+            }
 
             h1 {
                 font-size: 57px;
@@ -970,6 +1219,21 @@ useSeoMeta({
                 top: 50%;
                 //white-space: nowrap;
                 width: 100%;
+
+                @media (max-width: 1024px) {
+                    position: absolute;
+                    font-size: 20px;
+                    font-weight: 600;
+                    top: 85.7vw;
+                }
+
+                @media (max-width: 750px) {
+                    top: 84.5vw;
+                }
+
+                @media (max-width: 450px) {
+                    top: 80vw;
+                }
             }
 
             h2 {
@@ -985,6 +1249,13 @@ useSeoMeta({
                 top: 50%;
                 //white-space: nowrap;
                 width: 100%;
+
+                @media (max-width: 1024px) {
+                    position: relative;
+                    font-size: 20px;
+                    margin-top: 20px;
+                    font-weight: 400;
+                }
             }
 
             h3 {
@@ -1000,6 +1271,14 @@ useSeoMeta({
                 position: absolute;
                 top: 40%;
                 left: 15%;
+
+                @media (max-width: 1024px) {
+                    position: relative;
+                    text-align: center;
+                    top: 0;
+                    left: 0;
+                    margin-top: 20px;
+                }
             }
 
             a {
@@ -1021,6 +1300,12 @@ useSeoMeta({
                 position: absolute;
                 bottom: 5%;
                 right: 0%;
+
+                @media (max-width: 1024px) {
+                    position: relative;
+                    margin-top: 20px;
+                    display: inline-block;
+                }
 
             }
         }

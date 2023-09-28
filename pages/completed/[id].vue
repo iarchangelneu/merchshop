@@ -44,6 +44,10 @@ useSeoMeta({
         color: #000;
         margin-bottom: 20px;
 
+        @media (max-width: 1024px) {
+            font-size: 16px;
+        }
+
         &:last-child {
             margin-bottom: 0;
         }
@@ -63,6 +67,10 @@ useSeoMeta({
         text-transform: uppercase;
         font-family: var(--int);
         color: #000;
+
+        @media (max-width: 1024px) {
+            margin-top: 30px;
+        }
     }
 }
 </style>

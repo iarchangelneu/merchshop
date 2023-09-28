@@ -100,18 +100,41 @@ useSeoMeta({
 .cart {
     padding: 150px 100px 60px;
 
+    @media (max-width: 1600px) {
+        padding: 150px 50px 60px;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 100px 30px 60px 20px;
+    }
+
     .cart__body {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         gap: 8.333vw;
 
+        @media (max-width: 1024px) {
+            flex-direction: column;
+            gap: 30px;
+        }
+
         .cart__complete {
+            .text-center {
+                text-align: left !important;
+            }
+
             border: 2px solid #D2D2D2;
             background: #fff;
             padding: 30px;
             width: 100%;
             max-width: 530px;
+
+            @media (max-width: 1024px) {
+                border: 0;
+                background: transparent;
+                padding: 0;
+            }
 
             span {
                 display: block;
@@ -138,6 +161,7 @@ useSeoMeta({
                 font-family: var(--int);
                 color: #000;
                 margin-top: 10px;
+
             }
 
             button {
@@ -153,6 +177,10 @@ useSeoMeta({
                 font-family: var(--int);
                 color: #000;
                 margin-top: 58px;
+
+                @media (max-width: 1024px) {
+                    margin-top: 20px;
+                }
             }
 
             h1 {
@@ -165,6 +193,12 @@ useSeoMeta({
                 color: #000;
                 margin-bottom: 30px;
                 margin-top: 0;
+
+                @media (max-width: 1024px) {
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin-bottom: 20px;
+                }
             }
         }
 
@@ -179,6 +213,11 @@ useSeoMeta({
 
                 margin-bottom: 30px;
 
+                @media (max-width: 1024px) {
+                    gap: 15px;
+                    margin-bottom: 20px;
+                }
+
                 &:last-child {
                     margin: 0;
                 }
@@ -192,6 +231,12 @@ useSeoMeta({
                         width: 100%;
                         margin-top: 30px;
 
+                        @media (max-width: 1024px) {
+                            flex-direction: column;
+                            gap: 23px;
+                            margin-top: 10px;
+                        }
+
                         h1,
                         span {
                             white-space: nowrap;
@@ -203,6 +248,10 @@ useSeoMeta({
                             font-family: var(--int);
                             color: #000;
                             margin: 0;
+
+                            @media (max-width: 1024px) {
+                                font-size: 16px;
+                            }
                         }
 
                         .counter {
@@ -211,6 +260,11 @@ useSeoMeta({
                             gap: 15px;
 
 
+                            span {
+                                @media (max-width: 1024px) {
+                                    font-size: 20px;
+                                }
+                            }
 
                             img {
                                 cursor: pointer;
@@ -242,6 +296,10 @@ useSeoMeta({
                             text-transform: uppercase;
                             font-family: var(--int);
                             color: #000;
+
+                            @media (max-width: 1024px) {
+                                font-size: 16px;
+                            }
                         }
 
                         img {
@@ -254,6 +312,11 @@ useSeoMeta({
                     width: 19.271vw;
                     height: 17.344vw;
                     object-fit: cover;
+
+                    @media (max-width: 1024px) {
+                        width: 95px;
+                        height: 95px;
+                    }
                 }
             }
         }

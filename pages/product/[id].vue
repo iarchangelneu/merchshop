@@ -11,28 +11,14 @@
                         <img src="@/assets/img/product1.png" alt="">
                     </div>
                     <div class="slider__block">
-                        <img src="@/assets/img/prev2.svg" alt="" class="prev">
+
                         <div class="image__slider">
-                            <swiper :slides-per-view="4" :space-between="25" :breakpoints="breakpoints" :modules="modules"
-                                :navigation="navigation">
-                                <swiper-slide class="slide">
-                                    <img src="@/assets/img/product2.png" alt="">
-                                </swiper-slide>
-                                <swiper-slide class="slide">
-                                    <img src="@/assets/img/product2.png" alt="">
-                                </swiper-slide>
-                                <swiper-slide class="slide">
-                                    <img src="@/assets/img/product2.png" alt="">
-                                </swiper-slide>
-                                <swiper-slide class="slide">
-                                    <img src="@/assets/img/product2.png" alt="">
-                                </swiper-slide>
-                                <swiper-slide class="slide">
-                                    <img src="@/assets/img/product2.png" alt="">
-                                </swiper-slide>
-                            </swiper>
+                            <img src="@/assets/img/product2.png" alt="">
+                            <img src="@/assets/img/product2.png" alt="">
+                            <img src="@/assets/img/product2.png" alt="">
+                            <img src="@/assets/img/product2.png" alt="">
                         </div>
-                        <img src="@/assets/img/next2.svg" alt="" class="next">
+
                     </div>
                 </div>
                 <div class="product__desc">
@@ -40,6 +26,7 @@
                     <div v-html="description"></div>
 
                     <div class="add__infgo">
+                        <span class="seller">Продавец: <NuxtLink to='/'>ShopCases</NuxtLink></span>
                         <span>Материал: <small>силикон</small></span>
                         <span>Производитель: <small>Китай</small></span>
 
@@ -192,8 +179,20 @@ useSeoMeta({
 .product {
     padding: 150px 100px 60px;
 
+    @media (max-width: 1600px) {
+        padding: 150px 50px 60px;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 100px 20px 60px;
+    }
+
     .similar__products {
         margin-top: 50px;
+
+        @media (max-width: 1024px) {
+            margin-top: 30px;
+        }
 
         .showmore {
             margin-top: 30px;
@@ -219,6 +218,11 @@ useSeoMeta({
             gap: 35px;
             grid-auto-flow: dense;
 
+            @media (max-width: 1024px) {
+                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            }
+
             .similar__block {
                 background: #fff;
                 text-decoration: none;
@@ -226,12 +230,20 @@ useSeoMeta({
                 padding: 10px;
                 display: flex;
                 flex-direction: column;
-                max-width: 340px;
+                max-width: 100%;
+
+                @media (max-width: 1024px) {
+                    max-width: 100%;
+                }
 
                 img {
                     width: 100%;
                     height: 214px;
                     object-fit: cover;
+
+                    @media (max-width: 1024px) {
+                        height: 130px;
+                    }
 
                 }
 
@@ -244,6 +256,10 @@ useSeoMeta({
                     font-family: var(--int);
                     color: #000;
                     margin-top: 10px;
+
+                    @media (max-width: 1024px) {
+                        font-size: 10px;
+                    }
                 }
 
                 .price {
@@ -263,6 +279,10 @@ useSeoMeta({
                             text-transform: uppercase;
                             font-family: var(--int);
                             color: #000;
+
+                            @media (max-width: 1024px) {
+                                font-size: 12px;
+                            }
                         }
 
                         small {
@@ -275,6 +295,10 @@ useSeoMeta({
                             font-family: var(--int);
                             color: #828282;
                             margin-bottom: 4px;
+
+                            @media (max-width: 1024px) {
+                                font-size: 10px;
+                            }
                         }
                     }
 
@@ -285,7 +309,11 @@ useSeoMeta({
                         line-height: normal;
                         text-transform: uppercase;
                         font-family: var(--int);
-                        color: #000;
+                        color: #828282;
+
+                        @media (max-width: 1024px) {
+                            font-size: 12px;
+                        }
                     }
                 }
             }
@@ -309,7 +337,16 @@ useSeoMeta({
             gap: 60px;
             align-items: flex-start;
 
+            @media (max-width: 1024px) {
+                flex-direction: column;
+                gap: 20px;
+            }
+
             .product__author {
+                @media (max-width: 1024px) {
+                    display: none;
+                }
+
                 span {
                     font-size: 16px;
                     font-style: normal;
@@ -317,6 +354,7 @@ useSeoMeta({
                     line-height: 130%;
                     font-family: var(--int);
                     color: #000;
+                    white-space: nowrap;
 
                     a {
                         font-weight: 400;
@@ -324,6 +362,7 @@ useSeoMeta({
                         color: #000;
                     }
                 }
+
             }
 
             .product__desc {
@@ -331,10 +370,35 @@ useSeoMeta({
                 .add__infgo {
                     margin-top: 30px;
 
+                    @media (max-width: 1024px) {
+                        margin-top: 20px;
+                    }
+
+                    .seller {
+                        display: none;
+
+                        @media (max-width: 1024px) {
+                            display: block;
+                        }
+
+                        a {
+                            color: #000;
+                            text-decoration: underline;
+                            font-weight: 400;
+
+                        }
+                    }
+
                     .price {
                         margin-top: 10px;
                         display: flex;
                         gap: 30px;
+
+                        @media (max-width: 1024px) {
+                            flex-direction: column;
+                            gap: 20px;
+                            align-items: flex-start;
+                        }
 
                         h3 {
                             font-size: 32px;
@@ -345,6 +409,7 @@ useSeoMeta({
                             font-family: var(--int);
                             color: #000;
                             margin: 0;
+
                         }
 
                         button {
@@ -359,6 +424,8 @@ useSeoMeta({
                             text-transform: uppercase;
                             font-family: var(--int);
                             color: #000;
+
+                            @media (max-width: 1024px) {}
                         }
                     }
 
@@ -387,7 +454,11 @@ useSeoMeta({
                     text-transform: uppercase;
                     font-family: var(--int);
                     color: #000;
-                    margin-bottom: 30px;
+                    margin-bottom: 20px;
+
+                    @media (max-width: 1024px) {
+                        font-size: 16px;
+                    }
                 }
 
                 div {
@@ -401,43 +472,38 @@ useSeoMeta({
             }
 
             .product__images {
+
+                @media (max-width: 1024px) {
+                    width: 100%;
+                }
+
                 .slider__block {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    position: relative;
-                    max-width: 33.229vw;
 
                     .image__slider {
                         margin-top: 25px;
-                        position: relative;
-                        display: flex;
-                        max-width: 30.208vw;
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+                        gap: 35px;
+                        grid-auto-flow: dense;
+                        padding: 0 15px;
 
-                        .slide {
+                        @media (max-width: 1024px) {
+                            gap: 23px;
+                            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+                            padding: 0;
+                        }
 
+                        img {
+                            width: 100%;
+                            height: 125px;
+                            object-fit: cover;
 
-                            img {
-                                width: 100%;
-                                height: 125px;
-                                object-fit: cover;
+                            @media (max-width: 1024px) {
+                                height: 70px;
                             }
                         }
                     }
 
-                    // .prev {
-                    //     position: absolute;
-                    //     left: -5%;
-                    //     top: 50%;
-                    //     z-index: 10;
-                    // }
-
-                    // .next {
-                    //     position: absolute;
-                    //     right: -5%;
-                    //     top: 50%;
-                    //     z-index: 10;
-                    // }
 
                 }
 
@@ -445,6 +511,11 @@ useSeoMeta({
                     img {
                         width: 33.229vw;
                         height: 29.948vw;
+
+                        @media (max-width: 1024px) {
+                            width: 100%;
+                            height: 300px;
+                        }
                     }
                 }
             }
@@ -462,6 +533,10 @@ useSeoMeta({
             font-family: var(--int);
             color: #000;
             margin: 20px 0 30px;
+
+            @media (max-width: 1024px) {
+                font-size: 20px;
+            }
         }
     }
 }

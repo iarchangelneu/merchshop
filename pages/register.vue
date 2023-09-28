@@ -56,12 +56,22 @@ useSeoMeta({
     display: flex;
     align-items: center;
 
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
     .img {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
         width: 100%;
+
+        @media (max-width: 1024px) {
+            height: auto;
+            margin-top: 40px;
+        }
     }
 
 
@@ -74,8 +84,15 @@ useSeoMeta({
         max-width: 647px;
         padding: 0 100px;
 
-        background: url('@/assets/img/logtex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
+        //   // background: url('@/assets/img/logtex.svg'), lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat;
         background-color: #F7BFCA;
+
+        @media (max-width: 1024px) {
+            height: auto;
+            margin-top: 100px;
+            padding: 40px 25px;
+            max-width: 100%;
+        }
 
         p,
         a {
@@ -90,6 +107,10 @@ useSeoMeta({
             a {
                 color: #fff;
                 text-decoration: underline;
+            }
+
+            @media (max-width: 1024px) {
+                font-size: 12px;
             }
         }
 
@@ -143,6 +164,10 @@ useSeoMeta({
             line-height: 130%;
             font-family: var(--int);
             color: #000;
+
+            @media (max-width: 1024px) {
+                height: 40px;
+            }
         }
 
         h1 {
@@ -153,6 +178,10 @@ useSeoMeta({
             font-family: var(--int);
             color: #fff;
             margin: 0 0 30px;
+
+            @media (max-width: 1024px) {
+                font-size: 40px;
+            }
         }
     }
 }

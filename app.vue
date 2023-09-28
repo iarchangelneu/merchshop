@@ -7,6 +7,7 @@
     <TheFooter></TheFooter>
   </div>
 </template>
+
 <style lang="scss">
 .fullpage {
   display: flex;
