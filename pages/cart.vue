@@ -5,58 +5,30 @@
 
         <div class="cart__body">
             <div class="cart__items">
-                <div class="cart__item">
-                    <img src="@/assets/img/cart2.png" alt="" class="main__img">
+                <div class="cart__item" v-for="item in cart" :key="item.id">
+                    <img :src="pathUrl + '/api' + item.products.add_image[0].image" alt="" class="main__img">
 
                     <div>
                         <div class="name">
-                            <h1>чехол на телефон</h1>
-                            <img src="@/assets/img/deletecart.svg" alt="">
+                            <h2>{{ item.products.name }}</h2>
+                            <img src="@/assets/img/deletecart.svg" @click="deleteFromCart(item.id)" alt="">
                         </div>
                         <div class="price">
-                            <h1>4990 ₸</h1>
+                            <h1 v-if="item.products.discount > 0">{{ (Math.floor((item.products.price -
+                                ((item.products.price
+                                    * item.products.discount)
+                                    /
+                                    100))) * item.amount).toLocaleString() + ' ₸' }}</h1>
+                            <h1 v-else>{{ item.products.price == 0 ? 'Бесплатно' : (item.products.price *
+                                item.amount).toLocaleString() + ' ₸' }}
+                            </h1>
                             <div class="counter">
-                                <img src="@/assets/img/minus.svg" alt="">
-                                <span>1</span>
-                                <img src="@/assets/img/plus.svg" alt="">
+                                <img src="@/assets/img/minus.svg" alt="" @click="decrement(item)">
+                                <span>{{ item.amount }}</span>
+                                <img src="@/assets/img/plus.svg" alt="" @click="increment(item)">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="cart__item">
-                    <img src="@/assets/img/cart2.png" alt="" class="main__img">
-
-                    <div>
-                        <div class="name">
-                            <h1>чехол на телефон</h1>
-                            <img src="@/assets/img/deletecart.svg" alt="">
-                        </div>
-                        <div class="price">
-                            <h1>4990 ₸</h1>
-                            <div class="counter">
-                                <img src="@/assets/img/minus.svg" alt="">
-                                <span>1</span>
-                                <img src="@/assets/img/plus.svg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart__item">
-                    <img src="@/assets/img/cart2.png" alt="" class="main__img">
-
-                    <div>
-                        <div class="name">
-                            <h1>чехол на телефон</h1>
-                            <img src="@/assets/img/deletecart.svg" alt="">
-                        </div>
-                        <div class="price">
-                            <h1>4990 ₸</h1>
-                            <div class="counter">
-                                <img src="@/assets/img/minus.svg" alt="">
-                                <span>1</span>
-                                <img src="@/assets/img/plus.svg" alt="">
-                            </div>
-                        </div>
+                        <!-- <h1>{{ item.products.price }}</h1> -->
                     </div>
                 </div>
             </div>
@@ -67,23 +39,135 @@
                     <h1>Подтверждение покупки</h1>
                 </div>
 
-                <span>Товаров: 3</span>
-                <span>итоговая сумма: 19 070 ₸</span>
+                <span>Товаров: {{ cart.length }}</span>
+                <span>итоговая сумма: {{ formatPrice(calculateTotal()) }} ₸</span>
                 <small>Сумма будет списана с вашего счета</small>
 
                 <div class="text-center">
-                    <button>ПРОДОЛЖИТЬ ОФОРМЛЕНИЕ</button>
+                    <button ref="buyBtn" @click="buyProduct()">ПРОДОЛЖИТЬ ОФОРМЛЕНИЕ</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
-
+            cart: [],
+            pathUrl: 'https://merchshop.kz',
         }
+    },
+    methods: {
+        increment(item) {
+            item.amount++;
+            console.log(item)
+            this.changeAmount(item)
+        },
+        decrement(item) {
+            if (item.amount > 0) {
+                item.amount--;
+                console.log(item)
+                this.changeAmount(item)
+            }
+            if (item.amount <= 0) {
+                item.amount = 1
+                this.deleteFromCart(item.id)
+            }
+        },
+        buyProduct() {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/buyer/placed-basket`
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+            this.$refs.buyBtn.innerHTML = 'Оформляем'
+            axios
+                .get(path)
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 204) {
+                        this.$refs.buyBtn.innerHTML = 'Недостаточно средств'
+                    }
+                    if (response.status == 201) {
+                        // this.getBuyer()
+                        this.$refs.buyBtn.innerHTML = 'Оплата прошла успешно'
+
+                        setTimeout(() => {
+                            window.location.href = `/completed/${response.data.id_order}`
+                        }, 3);
+
+                    }
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+
+        },
+        changeAmount(item) {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/buyer/all-product-basket`;
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
+            axios
+                .put(path, item)
+                .then((res) => {
+                    console.log(res)
+                    //     this.getCart()
+                })
+                .catch((error) => {
+                    console.error(error);
+
+                });
+        },
+        calculateTotal() {
+            let total = 0;
+
+            this.cart.forEach(item => {
+                const { price, discount } = item.products;
+                const discountedPrice = price * (1 - discount / 100);
+                total += discountedPrice * item.amount;
+            });
+
+            return total;
+        },
+        formatPrice(price) {
+            return price.toLocaleString('ru-RU');
+        },
+        deleteFromCart(id) {
+            const token = this.getAuthorizationCookie()
+            const csrf = this.getCSRFToken()
+            const path = `${this.pathUrl}/api/buyer/delete-product-basket/${id}`
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+            axios.defaults.headers.common['X-CSRFToken'] = csrf;
+            axios
+                .put(path)
+                .then(response => {
+                    console.log(response)
+                    this.getCart()
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        },
+        getCart() {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/buyer/all-product-basket`;
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
+            axios
+                .get(path)
+                .then(response => {
+                    this.cart = response.data
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        },
+    },
+    mounted() {
+        this.getCart()
     }
 }
 </script>

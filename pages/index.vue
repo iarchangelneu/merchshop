@@ -124,120 +124,43 @@
 
             <div class="sales__body">
                 <div class="sales__row">
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale1.png" alt="">
+                    <NuxtLink class="sales__block" v-for="item in discounts.slice(0, 4)" :key="item.id"
+                        :to="'/product/' + item.id">
+                        <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
-                        <h1>Плакат «Кот-кондитер»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>1500 ₸</span>
-                                <small>3000 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-50%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale2.png" alt="">
-
-                        <h1>футболка «Горный воздух»</h1>
+                        <h1>{{ item.name }}</h1>
 
                         <div class="price">
                             <div>
-                                <span>5500 ₸</span>
-                                <small>7150 ₸</small>
+                                <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                                    100))).toLocaleString() + ' ₸' }}</span>
+                                <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                                <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                             </div>
 
-                            <p class="mb-0">-30%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale3.png" alt="">
-
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale4.png" alt="">
-
-                        <h1>ХУДИ «фУДЗИЯМА»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>9 900 ₸</span>
-                                <small>11 880 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-20%</p>
+                            <p class="mb-0" v-if="item.discount > 0">-{{ item.discount }}%</p>
                         </div>
                     </NuxtLink>
                 </div>
                 <div class="sales__row">
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale1.png" alt="">
+                    <NuxtLink class="sales__block" v-for="item in discounts.slice(4, 8)" :key="item.id"
+                        :to="'/product/' + item.id">
+                        <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
-                        <h1>Плакат «Кот-кондитер»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>1500 ₸</span>
-                                <small>3000 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-50%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale2.png" alt="">
-
-                        <h1>футболка «Горный воздух»</h1>
+                        <h1>{{ item.name }}</h1>
 
                         <div class="price">
                             <div>
-                                <span>5500 ₸</span>
-                                <small>7150 ₸</small>
+                                <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                                    100))).toLocaleString() + ' ₸' }}</span>
+                                <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                                <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                             </div>
 
-                            <p class="mb-0">-30%</p>
+                            <p class="mb-0" v-if="item.discount > 0">-{{ item.discount }}%</p>
                         </div>
                     </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale3.png" alt="">
 
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale4.png" alt="">
-
-                        <h1>ХУДИ «фУДЗИЯМА»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>9 900 ₸</span>
-                                <small>11 880 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-20%</p>
-                        </div>
-                    </NuxtLink>
                 </div>
             </div>
             <div class="text-right">
@@ -251,47 +174,47 @@
             <h1>категории</h1>
 
             <div class="categories__body">
-                <div class="categories__block">
+                <NuxtLink to="/catalog/?category=1" class="categories__block">
                     <img src="@/assets/img/cat1.png" alt="">
 
                     <h1>сТИКЕРЫ</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=2" class="categories__block">
                     <img src="@/assets/img/cat2.png" alt="">
                     <h1>ОДЕЖДА</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=3" class="categories__block">
                     <img src="@/assets/img/cat3.png" alt="">
                     <h1>ЧЕХЛЫ НА ТЕЛЕФОН</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=4" class="categories__block">
                     <img src="@/assets/img/cat4.png" alt="">
                     <h1>ПОСТЕРЫ</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=5" class="categories__block">
                     <img src="@/assets/img/cat5.png" alt="">
                     <h1>ДЛЯ ДОМА</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=6" class="categories__block">
                     <img src="@/assets/img/cat6.png" alt="">
                     <h1>АКСЕССУАРЫ</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=7" class="categories__block">
                     <img src="@/assets/img/cat7.png" alt="">
                     <h1>ДЛЯ ПИТОМЦЕВ</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=8" class="categories__block">
                     <img src="@/assets/img/cat8.png" alt="">
                     <h1>КАНЦЕЛЯРИЯ</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=9" class="categories__block">
                     <img src="@/assets/img/cat9.png" alt="">
                     <h1>ДЛЯ ДЕТЕЙ</h1>
-                </div>
-                <div class="categories__block">
+                </NuxtLink>
+                <NuxtLink to="/catalog/?category=10" class="categories__block">
                     <img src="@/assets/img/cat10.png" alt="">
                     <h1>ПОДАРОЧНЫЕ НАБОРЫ</h1>
-                </div>
+                </NuxtLink>
             </div>
         </div>
 
@@ -301,118 +224,41 @@
 
             <div class="sales__body">
                 <div class="sales__row">
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale1.png" alt="">
+                    <NuxtLink class="sales__block" v-for="item in populars.slice(0, 4)" :key="item.id"
+                        :to="'/product/' + item.id">
+                        <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
-                        <h1>Плакат «Кот-кондитер»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>1500 ₸</span>
-                                <small>3000 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-50%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale2.png" alt="">
-
-                        <h1>футболка «Горный воздух»</h1>
+                        <h1>{{ item.name }}</h1>
 
                         <div class="price">
                             <div>
-                                <span>5500 ₸</span>
-                                <small>7150 ₸</small>
+                                <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                                    100))).toLocaleString() + ' ₸' }}</span>
+                                <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                                <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                             </div>
 
-                            <p class="mb-0">-30%</p>
+                            <p class="mb-0" v-if="item.discount > 0">-{{ item.discount }}%</p>
                         </div>
                     </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale3.png" alt="">
 
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale4.png" alt="">
-
-                        <h1>ХУДИ «фУДЗИЯМА»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>9 900 ₸</span>
-                                <small>11 880 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-20%</p>
-                        </div>
-                    </NuxtLink>
                 </div>
                 <div class="sales__row">
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale1.png" alt="">
+                    <NuxtLink class="sales__block" v-for="item in populars.slice(4, 8)" :key="item.id"
+                        :to="'/product/' + item.id">
+                        <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
-                        <h1>Плакат «Кот-кондитер»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>1500 ₸</span>
-                                <small>3000 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-50%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale2.png" alt="">
-
-                        <h1>футболка «Горный воздух»</h1>
+                        <h1>{{ item.name }}</h1>
 
                         <div class="price">
                             <div>
-                                <span>5500 ₸</span>
-                                <small>7150 ₸</small>
+                                <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                                    100))).toLocaleString() + ' ₸' }}</span>
+                                <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                                <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                             </div>
 
-                            <p class="mb-0">-30%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale3.png" alt="">
-
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="sales__block">
-                        <img src="@/assets/img/sale4.png" alt="">
-
-                        <h1>ХУДИ «фУДЗИЯМА»</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>9 900 ₸</span>
-                                <small>11 880 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-20%</p>
+                            <p class="mb-0" v-if="item.discount > 0">-{{ item.discount }}%</p>
                         </div>
                     </NuxtLink>
                 </div>
@@ -519,7 +365,10 @@
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
             modules: [Navigation],
@@ -539,7 +388,38 @@ export default {
                     spaceBetween: 30,
                 }
             },
+            pathUrl: 'https://merchshop.kz',
+            populars: [],
+            discounts: [],
         }
+    },
+    methods: {
+        getPopulars() {
+            const path = `${this.pathUrl}/api/products/popular-product?amount_products=8`;
+            axios
+                .get(path)
+                .then(response => {
+                    this.populars = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getDiscount() {
+            const path = `${this.pathUrl}/api/products/discount-product?amount_products=8`;
+            axios
+                .get(path)
+                .then(response => {
+                    this.discounts = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+    },
+    mounted() {
+        this.getPopulars()
+        this.getDiscount()
     },
 
 }
@@ -835,6 +715,9 @@ useSeoMeta({
             gap: 20px;
             grid-auto-flow: dense;
 
+            a {
+                text-decoration: none;
+            }
 
             @media (max-width: 1024px) {
                 grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));

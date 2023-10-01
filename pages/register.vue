@@ -4,24 +4,33 @@
             <div>
                 <h1>Регистрация</h1>
 
-                <input type="email" name="email" id="email" v-model="email" placeholder="Эл.почта">
-                <input type="password" name="password" id="password" v-model="password" placeholder="Пароль">
+                <input type="email" name="email" id="email" v-model="email" placeholder="Эл.почта" ref="email">
+                <input type="password" name="password" id="password" v-model="password" placeholder="Пароль" ref="password">
                 <input type="password" name="password" id="password" v-model="password__repeat"
-                    placeholder="Повторите Пароль">
-                <input type="text" name="name" id="name" v-model="name" placeholder="Отображаемое имя">
-
+                    placeholder="Повторите Пароль" ref="repeat__password">
+                <input type="text" name="name" id="name" v-model="name" placeholder="Отображаемое имя" ref="name">
+                <div class="type">
+                    <button :class="{ activeBtn: userType == 'seller' }" @click="userType = 'seller'">
+                        Продавец
+                    </button>
+                    <button :class="{ activeBtn: userType == 'buyer' }" @click="userType = 'buyer'">
+                        Покупатель
+                    </button>
+                </div>
                 <label class="custom-checkbox text-left">
-                    <input type="checkbox">
-                    <p class="checkbox-text m-0">Я согласен с <NuxtLink to="/terms">пользовательским соглашением
+                    <input type="checkbox" v-model="checked">
+                    <p class="checkbox-text m-0" ref="checked">Я согласен с <NuxtLink to="/terms">пользовательским
+                            соглашением
                         </NuxtLink>
                         и <NuxtLink to="/polytics">политикой конфиденциальности</NuxtLink>
                     </p>
                 </label>
 
                 <div class="text-center">
-                    <button>зарегистрироваться</button>
+                    <small>{{ error }}</small>
+                    <button @click="register()">зарегистрироваться</button>
 
-                    <span>Уже есть аккаунт? <NuxtLink to='/register'>Вход</NuxtLink></span>
+                    <span>Уже есть аккаунт? <NuxtLink to='/login'>Вход</NuxtLink></span>
                 </div>
             </div>
         </div>
@@ -32,14 +41,112 @@
     </div>
 </template>
 <script>
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
             email: '',
             password: '',
             password__repeat: '',
             name: '',
+            checked: false,
+            error: '',
+            userType: 'seller',
+            pathUrl: 'https://merchshop.kz',
         }
+    },
+    methods: {
+        register() {
+            const buyer = `${this.pathUrl}/api/main/registration/buyer`
+            const seller = `${this.pathUrl}/api/main/registration/seller`
+            const csrf = this.getCSRFToken()
+
+            if (this.email !== '') {
+                this.error = ''
+                this.$refs.email.style.borderColor = '#fff'
+
+                if (this.password != 0 && this.password == this.password__repeat) {
+                    this.$refs.password.style.borderColor = '#fff'
+                    this.$refs.repeat__password.style.borderColor = '#fff'
+                    this.error = ''
+
+                    if (this.checked) {
+                        this.$refs.checked.style.color = '#fff'
+                        if (this.name !== '') {
+                            if (this.userType == 'seller') {
+
+                                this.$refs.name.style.borderColor = '#fff'
+                                this.error = ''
+                                axios.defaults.headers.common['X-CSRFToken'] = csrf;
+                                axios
+                                    .post(seller, { first_name: this.name, password: this.password, username: this.email, email: this.email })
+                                    .then((res) => {
+
+                                        document.cookie = `Authorization=${res.data.token}; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/`;
+                                        console.log(res)
+                                        localStorage.setItem('accountType', res.data.redirect_url)
+                                        window.location.href = res.data.redirect_url
+                                    })
+                                    .catch((error) => {
+                                        this.error = error.response.data.detail
+                                        console.log(error.response);
+                                    });
+
+                            }
+                            else {
+                                axios.defaults.headers.common['X-CSRFToken'] = csrf;
+                                this.error = ''
+                                axios
+                                    .post(buyer, { first_name: this.name, email: this.email, password: this.password, username: this.email, email: this.email })
+                                    .then((res) => {
+
+                                        document.cookie = `Authorization=${res.data.token}; expires=Fri, 31 Dec 2023 23:59:59 GMT; path=/`;
+                                        console.log(res)
+                                        localStorage.setItem('accountType', res.data.redirect_url)
+                                        window.location.href = '/'
+                                    })
+                                    .catch((error) => {
+                                        console.log(error.responseS);
+                                        this.error = error.response.data.detail
+                                    });
+                            }
+                        }
+                        else {
+                            this.error = 'Вы не заполнили имя'
+                            this.$refs.name.style.borderColor = 'red'
+                        }
+                    }
+                    else {
+                        this.$refs.checked.style.color = 'red'
+                        this.error = 'Вы не согласились с условиями'
+                    }
+                }
+                else {
+                    this.error = 'Пароли не совпадают'
+                    this.$refs.password.style.borderColor = 'red'
+                    this.$refs.repeat__password.style.borderColor = 'red'
+                }
+            }
+            else {
+                this.error = 'Вы не указали почту'
+                this.$refs.email.style.borderColor = 'red'
+            }
+        }
+    },
+    mounted() {
+        const accType = localStorage.getItem('accountType')
+        if (accType == 'buyer-account') {
+            window.location.href = '/buyer-account'
+        }
+        else if (accType == 'seller-account') {
+            window.location.href = '/seller-account'
+        }
+        else {
+            console.log('not authorized')
+        }
+
     }
 }
 </script>
@@ -56,9 +163,33 @@ useSeoMeta({
     display: flex;
     align-items: center;
 
+    small {
+        margin-bottom: 20px;
+        text-align: left !important;
+        display: block;
+        color: red;
+        font-family: var(--int);
+        font-size: 14px;
+    }
+
     @media (max-width: 1024px) {
         flex-direction: column;
         padding: 0 20px;
+    }
+
+    .type {
+        display: flex;
+        gap: 27px;
+
+        .activeBtn {
+            background: #fff !important;
+            color: #000 !important;
+        }
+
+        button {
+            flex: 1;
+            transition: all .3s ease;
+        }
     }
 
     .img {
@@ -206,10 +337,10 @@ useSeoMeta({
 
 .custom-checkbox input[type="checkbox"]:checked+.checkbox-text:before {
     content: url('@/assets/img/check.svg');
-    font-size: 30px;
+    font-size: 10px;
     color: black;
     text-align: center;
-    line-height: 20px;
+    line-height: 10px;
     background: transparent;
 }
 

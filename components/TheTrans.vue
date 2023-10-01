@@ -83,10 +83,10 @@ export default {
 </script>
 <script setup>
 useSeoMeta({
-    title: 'Транзакции | Studynow',
-    ogTitle: 'Транзакции | Studynow',
-    description: 'Транзакции | Studynow',
-    ogDescription: 'Транзакции | Studynow',
+    title: 'Транзакции | MerchShop',
+    ogTitle: 'Транзакции | MerchShop',
+    description: 'Транзакции | MerchShop',
+    ogDescription: 'Транзакции | MerchShop',
 })
 </script>
 <style lang="scss" scoped>

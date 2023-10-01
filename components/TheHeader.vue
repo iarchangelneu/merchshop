@@ -8,9 +8,14 @@
 
 
                 <div class="right">
-                    <img src="@/assets/img/cart.svg" style="cursor: pointer;" alt="" @click.stop="toggleCart">
-                    <img src="@/assets/img/account.svg" alt="">
-                    <img src="@/assets/img/cash.svg" class="cash" alt="">
+                    <img src="@/assets/img/cart.svg" v-if="accountUrl == '/buyer-account'" style="cursor: pointer;" alt=""
+                        @click.stop="toggleCart">
+                    <NuxtLink :to="this.accountUrl">
+                        <img src="@/assets/img/account.svg" alt="">
+                    </NuxtLink>
+                    <NuxtLink to="/withdrawal" v-if="accountUrl == '/buyer-account' || accountUrl == '/seller-account'">
+                        <img src="@/assets/img/cash.svg" class="cash" alt="">
+                    </NuxtLink>
 
                     <div class="burg">
                         <input id="menu__toggle" class="d-none" type="checkbox" />
@@ -23,46 +28,42 @@
 
                     <div class="links">
                         <NuxtLink to="/#sales">Акции и скидки</NuxtLink>
-                        <NuxtLink to="/catalog">Каталог</NuxtLink>
+                        <a href="/catalog">Каталог</a>
                         <NuxtLink to="/about">о нас</NuxtLink>
-                        <NuxtLink to="/refill" class="refill">Кошелек <img src="@/assets/img/cash.svg" alt=""></NuxtLink>
-                        <small>14000 ₸</small>
+                        <NuxtLink to="/withdrawal" class="refill">Кошелек <img src="@/assets/img/cash.svg" alt="">
+                        </NuxtLink>
+                        <small v-if="userBalance !== null">{{ userBalance == null ? '0 ₸' : userBalance.toLocaleString()
+                            + ' ₸' }} </small>
                     </div>
 
-                    <NuxtLink to="/login" class="login">Войти / регистрация</NuxtLink>
+                    <NuxtLink to="/login" class="login"
+                        v-if="accountUrl !== '/seller-account' && accountUrl !== '/buyer-account'">Войти / регистрация
+                    </NuxtLink>
 
                     <div class="links moblinks">
-                        <NuxtLink to="/catalog/?category=stickers"
-                            :class="{ 'link--active': $route.query.category === 'stickers' }">
-                            Стикеры</NuxtLink>
-                        <NuxtLink to="/catalog/?category=cloth"
-                            :class="{ 'link--active': $route.query.category === 'cloth' }">
+                        <a href="/catalog/?category=1" :class="{ 'link--active': $route.query.category === '1' }">
+                            Стикеры</a>
+                        <a href="/catalog/?category=2" :class="{ 'link--active': $route.query.category === '2' }">
                             Одежда
-                        </NuxtLink>
-                        <NuxtLink to="/catalog/?category=cases"
-                            :class="{ 'link--active': $route.query.category === 'cases' }">Чехлы
+                        </a>
+                        <a href="/catalog/?category=3" :class="{ 'link--active': $route.query.category === '3' }">Чехлы
                             на
-                            телефон</NuxtLink>
-                        <NuxtLink to="/catalog/?category=posters"
-                            :class="{ 'link--active': $route.query.category === 'posters' }">
-                            Постеры</NuxtLink>
-                        <NuxtLink to="/catalog/?category=households"
-                            :class="{ 'link--active': $route.query.category === 'households' }">Для дома</NuxtLink>
-                        <NuxtLink to="/catalog/?category=accessories"
-                            :class="{ 'link--active': $route.query.category === 'accessories' }">Аксессуары</NuxtLink>
-                        <NuxtLink to="/catalog/?category=pets"
-                            :class="{ 'link--active': $route.query.category === 'pets' }">Для
-                            питомцев</NuxtLink>
-                        <NuxtLink to="/catalog/?category=office"
-                            :class="{ 'link--active': $route.query.category === 'office' }">
-                            Канцелярия</NuxtLink>
-                        <NuxtLink to="/catalog/?category=kids"
-                            :class="{ 'link--active': $route.query.category === 'kids' }">Для
+                            телефон</a>
+                        <a href="/catalog/?category=4" :class="{ 'link--active': $route.query.category === '4' }">
+                            Постеры</a>
+                        <a href="/catalog/?category=5" :class="{ 'link--active': $route.query.category === '5' }">Для
+                            дома</a>
+                        <a href="/catalog/?category=6" :class="{ 'link--active': $route.query.category === '6' }">
+                            Аксессуары</a>
+                        <a href="/catalog/?category=7" :class="{ 'link--active': $route.query.category === '7' }">Для
+                            питомцев</a>
+                        <a href="/catalog/?category=8" :class="{ 'link--active': $route.query.category === '8' }">
+                            Канцелярия</a>
+                        <a href="/catalog/?category=9" :class="{ 'link--active': $route.query.category === '9' }">Для
                             детей
-                        </NuxtLink>
-                        <NuxtLink to="/catalog/?category=gifts"
-                            :class="{ 'link--active': $route.query.category === 'gifts' }">
-                            Подарочные наборы</NuxtLink>
+                        </a>
+                        <a href="/catalog/?category=10" :class="{ 'link--active': $route.query.category === '10' }">
+                            Подарочные наборы</a>
                     </div>
                 </div>
 
@@ -71,30 +72,29 @@
                 '--categories-opacity': isCategoriesVisible ? '1' : '0',
                 '--categories-pointer-events': isCategoriesVisible ? 'auto' : 'none',
             }" v-if="isCategoriesVisible">
-                <NuxtLink to="/catalog/?category=stickers"
-                    :class="{ 'link--active': $route.query.category === 'stickers' }">
-                    Стикеры</NuxtLink>
-                <NuxtLink to="/catalog/?category=cloth" :class="{ 'link--active': $route.query.category === 'cloth' }">
+                <a href="/catalog/?category=1" :class="{ 'link--active': $route.query.category === '1' }">
+                    Стикеры</a>
+                <a href="/catalog/?category=2" :class="{ 'link--active': $route.query.category === '2' }">
                     Одежда
-                </NuxtLink>
-                <NuxtLink to="/catalog/?category=cases" :class="{ 'link--active': $route.query.category === 'cases' }">Чехлы
+                </a>
+                <a href="/catalog/?category=3" :class="{ 'link--active': $route.query.category === '3' }">Чехлы
                     на
-                    телефон</NuxtLink>
-                <NuxtLink to="/catalog/?category=posters" :class="{ 'link--active': $route.query.category === 'posters' }">
-                    Постеры</NuxtLink>
-                <NuxtLink to="/catalog/?category=households"
-                    :class="{ 'link--active': $route.query.category === 'households' }">Для дома</NuxtLink>
-                <NuxtLink to="/catalog/?category=accessories"
-                    :class="{ 'link--active': $route.query.category === 'accessories' }">Аксессуары</NuxtLink>
-                <NuxtLink to="/catalog/?category=pets" :class="{ 'link--active': $route.query.category === 'pets' }">Для
-                    питомцев</NuxtLink>
-                <NuxtLink to="/catalog/?category=office" :class="{ 'link--active': $route.query.category === 'office' }">
-                    Канцелярия</NuxtLink>
-                <NuxtLink to="/catalog/?category=kids" :class="{ 'link--active': $route.query.category === 'kids' }">Для
+                    телефон</a>
+                <a href="/catalog/?category=4" :class="{ 'link--active': $route.query.category === '4' }">
+                    Постеры</a>
+                <a href="/catalog/?category=5" :class="{ 'link--active': $route.query.category === '5' }">Для
+                    дома</a>
+                <a href="/catalog/?category=6" :class="{ 'link--active': $route.query.category === '6' }">
+                    Аксессуары</a>
+                <a href="/catalog/?category=7" :class="{ 'link--active': $route.query.category === '7' }">Для
+                    питомцев</a>
+                <a href="/catalog/?category=8" :class="{ 'link--active': $route.query.category === '8' }">
+                    Канцелярия</a>
+                <a href="/catalog/?category=9" :class="{ 'link--active': $route.query.category === '9' }">Для
                     детей
-                </NuxtLink>
-                <NuxtLink to="/catalog/?category=gifts" :class="{ 'link--active': $route.query.category === 'gifts' }">
-                    Подарочные наборы</NuxtLink>
+                </a>
+                <a href="/catalog/?category=10" :class="{ 'link--active': $route.query.category === '10' }">
+                    Подарочные наборы</a>
             </div>
         </div>
 
@@ -105,34 +105,25 @@
             </div>
 
             <div class="cart__body">
-                <div class="cart__item">
-                    <img src="@/assets/img/cart.png" class="main__cart" alt="">
+                <div class="cart__item" v-for="item in cart" :key="item.id">
+                    <img :src="pathUrl + '/api' + item.products.add_image[0].image" class="main__cart" alt="">
 
                     <div>
-                        <h2>чехол на телефон</h2>
+                        <h2>{{ item.products.name }}</h2>
 
                         <div class="price">
-                            <h2>4990 ₸</h2>
+                            <h2 v-if="item.products.discount > 0">{{ (Math.floor((item.products.price -
+                                ((item.products.price
+                                    * item.products.discount)
+                                    /
+                                    100))) * item.amount).toLocaleString() + ' ₸' }}</h2>
+                            <h2 v-else>{{ item.products.price == 0 ? 'Бесплатно' : (item.products.price *
+                                item.amount).toLocaleString() + ' ₸' }}
+                            </h2>
                             <div class="counter">
-                                <img src="@/assets/img/minus.svg" alt="">
-                                <span>1</span>
-                                <img src="@/assets/img/plus.svg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart__item">
-                    <img src="@/assets/img/cart.png" class="main__cart" alt="">
-
-                    <div>
-                        <h2>чехол на телефон</h2>
-
-                        <div class="price">
-                            <h2>4990 ₸</h2>
-                            <div class="counter">
-                                <img src="@/assets/img/minus.svg" alt="">
-                                <span>1</span>
-                                <img src="@/assets/img/plus.svg" alt="">
+                                <img src="@/assets/img/minus.svg" alt="" @click="decrement(item)">
+                                <span>{{ item.amount }}</span>
+                                <img src="@/assets/img/plus.svg" @click="increment(item)" alt="">
                             </div>
                         </div>
                     </div>
@@ -146,7 +137,10 @@
     </header>
 </template>
 <script>
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
             menuOpen: false,
@@ -154,16 +148,54 @@ export default {
             lastScrollTop: 0,
             cartOpen: false,
             hideHeaderOnPages: ['login', 'register'],
+            pathUrl: 'https://merchshop.kz',
+            userBalance: null,
+            accountType: '',
+            accountUrl: 'false',
+            cart: [],
         }
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll);
+        const accType = localStorage.getItem('accountType')
+        if (accType == 'buyer-account') {
+            this.getBuyer()
+            this.getCart()
+            this.accountType = 'buyer'
+            setInterval(() => {
+                this.cartLength = localStorage.getItem('cartLength')
+            }, 1);
+        }
+        else if (accType == 'seller-account') {
+            this.getSeller()
+            this.accountType = 'seller'
+        }
+        else {
+            console.log('not authorized')
+        }
     },
     methods: {
+        increment(item) {
+            item.amount++;
+            console.log(item)
+            this.changeAmount(item)
+        },
+        decrement(item) {
+            if (item.amount > 0) {
+                item.amount--;
+                console.log(item)
+                this.changeAmount(item)
+            }
+            if (item.amount <= 0) {
+                item.amount = 1
+                this.deleteFromCart(item.id)
+            }
+        },
         toggleCart() {
             this.cartOpen = !this.cartOpen;
             if (this.cartOpen) {
                 document.addEventListener('click', this.closeCart);
+                this.getCart()
             } else {
                 document.removeEventListener('click', this.closeCart);
             }
@@ -185,6 +217,76 @@ export default {
             }
 
             this.lastScrollTop = currentScrollTop;
+        },
+        changeAmount(item) {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/buyer/all-product-basket`;
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
+            axios
+                .put(path, item)
+                .then((res) => {
+                    console.log(res)
+                    //     this.getCart()
+                })
+                .catch((error) => {
+                    console.error(error);
+
+                });
+        },
+        getCart() {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/buyer/all-product-basket`;
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
+            axios
+                .get(path)
+                .then(response => {
+                    this.cart = response.data
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        },
+        deleteFromCart(id) {
+            const token = this.getAuthorizationCookie()
+            const csrf = this.getCSRFToken()
+            const path = `${this.pathUrl}/api/buyer/delete-product-basket/${id}`
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+            axios.defaults.headers.common['X-CSRFToken'] = csrf;
+            axios
+                .put(path)
+                .then(response => {
+                    console.log(response)
+                    this.getCart()
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        },
+        getBuyer() {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/buyer/buyer-lk`;
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+            axios
+                .get(path)
+                .then(response => {
+                    this.userBalance = response.data.balance
+
+                })
+                .catch(error => console.log(error));
+        },
+        getSeller() {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/seller/seller-lk`;
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+            axios
+                .get(path)
+                .then(response => {
+                    this.userBalance = response.data.balance
+
+                })
+                .catch(error => console.log(error));
         },
     },
     beforeDestroy() {

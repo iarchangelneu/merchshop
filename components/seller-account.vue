@@ -52,7 +52,7 @@
                         <div>
                             <h1>{{ product.name }}</h1>
                             <small>{{ product.price == 0 ? 'Бесплатно' : (Math.floor(product.price - ((product.price *
-                                                            product.discount) / 100))).toLocaleString() + ' ₸' }}</small>
+                                product.discount) / 100))).toLocaleString() + ' ₸' }}</small>
                         </div>
 
 
@@ -77,8 +77,8 @@
                         <div>
                             <h1>{{ item.products.name }}</h1>
                             <small>{{ item.products.price == 0 ? 'Бесплатно' : (Math.floor(item.products.price -
-                                                            ((item.products.price *
-                                                            item.products.discount) / 100))).toLocaleString() + ' ₸' }}</small>
+                                ((item.products.price *
+                                    item.products.discount) / 100))).toLocaleString() + ' ₸' }}</small>
                         </div>
 
                         <div>
@@ -169,7 +169,7 @@ export default {
     data() {
         return {
             tabs: ['Мои товары', 'Мои продажи', 'Транзакции', 'Обратная связь', 'Аккаунт'],
-            pathUrl: 'https://studynow.kz',
+            pathUrl: 'https://merchshop.kz',
             activeTab: 0,
             tabWidth: 0,
             tabOffset: 0,
@@ -346,10 +346,10 @@ export default {
 </script>
 <script setup>
 useSeoMeta({
-    title: 'Личный кабинет | Studynow',
-    ogTitle: 'Личный кабинет | Studynow',
-    description: 'Личный кабинет | Studynow',
-    ogDescription: 'Личный кабинет | Studynow',
+    title: 'Личный кабинет | MerchShop',
+    ogTitle: 'Личный кабинет | MerchShop',
+    description: 'Личный кабинет | MerchShop',
+    ogDescription: 'Личный кабинет | MerchShop',
 })
 </script>
 <style lang="scss" scoped>

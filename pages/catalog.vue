@@ -19,217 +19,164 @@
             <div class="sort__block" :class="{ 'sort--open': sort }" @click="stopPropagation">
                 <label class="custom-checkbox">
                     <input type="checkbox">
-                    <p class="checkbox-text m-0">цена max</p>
+                    <p class="checkbox-text m-0" @click="selectedSort = 2, sortBy('-price')">цена max</p>
                 </label>
                 <label class="custom-checkbox">
                     <input type="checkbox">
-                    <p class="checkbox-text m-0">цена min</p>
+                    <p class="checkbox-text m-0" @click="selectedSort = 1, sortBy('price')">цена min</p>
                 </label>
                 <label class="custom-checkbox">
                     <input type="checkbox">
-                    <p class="checkbox-text m-0">популярное</p>
+                    <p class="checkbox-text m-0" @click="selectedSort = 3, sortBy('-discount')">Скидки max</p>
                 </label>
                 <label class="custom-checkbox">
                     <input type="checkbox">
-                    <p class="checkbox-text m-0">Скидки</p>
+                    <p class="checkbox-text m-0" @click="selectedSort = 4, sortBy('discount')">Скидки min</p>
                 </label>
 
                 <div class="price">
                     <h2>цена</h2>
 
                     <div class="inputs">
-                        <input type="number" name="from" id="from" placeholder="от ₸">
+                        <input type="number" name="from" id="from" placeholder="от ₸" v-model="minPrice"
+                            @input="applyFilters">
                         <img src="@/assets/img/line.svg" alt="">
-                        <input type="number" name="to" id="to" placeholder="до ₸">
+                        <input type="number" name="to" id="to" placeholder="до ₸" v-model="maxPrice" @input="applyFilters">
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="catalog__body">
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
+            <NuxtLink class="catalog__block" v-for="item in catalog.results" :key="item.id" :to="'/product/' + item.id">
+                <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
+                <h1>{{ item.name }}</h1>
 
                 <div class="price">
                     <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
+                        <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                            100))).toLocaleString() + ' ₸' }}</span>
+                        <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                        <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                     </div>
 
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
-                </div>
-            </NuxtLink>
-            <NuxtLink to="/catalog" class="catalog__block">
-                <img src="@/assets/img/sale3.png" alt="">
-
-                <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                <div class="price">
-                    <div>
-                        <span>6990 ₸</span>
-                        <small>7690 ₸</small>
-                    </div>
-
-                    <p class="mb-0">-10%</p>
+                    <p class="mb-0" v-if="item.discount > 0">-{{ item.discount }}%</p>
                 </div>
             </NuxtLink>
         </div>
 
         <div class="text-right showmore">
-            <button ref="showmore">показать еще</button>
+            <button ref="showmore" @click="loadMoreProducts()">показать еще</button>
         </div>
     </div>
 </template>
 <script>
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
             sort: false,
+            selectedSort: 0,
+            catalog: [],
+            minPrice: null,
+            maxPrice: null,
+            pathUrl: 'https://merchshop.kz',
+
         }
     },
     methods: {
+        getCatalog() {
+            const queryParams = new URLSearchParams(window.location.search);
+            const categoryParam = queryParams.get('category');
+
+
+
+            let url = `${this.pathUrl}/api/products/all-product`;
+            if (categoryParam) {
+                url = `${this.pathUrl}/api/products/category-product/${categoryParam}`;
+            }
+
+            axios
+                .get(url)
+                .then(response => {
+                    this.catalog = response.data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        loadMoreProducts() {
+            if (this.catalog.next) {
+                this.$refs.showmore.innerHTML = 'Загружаем'
+                axios
+                    .get(this.catalog.next)
+                    .then(response => {
+                        this.$refs.showmore.innerHTML = 'Показать еще'
+                        this.catalog.results.push(...response.data.results);
+                        this.catalog.next = response.data.next;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+            else {
+                this.$refs.showmore.innerHTML = 'Больше ничего нет (;'
+            }
+        },
+        sortBy(ordering) {
+            this.sort = false
+            const queryParams = new URLSearchParams(window.location.search);
+            const categoryParam = queryParams.get('category');
+
+
+
+            let path = `${this.pathUrl}/api/products/all-product?ordering=${ordering}`;
+            if (categoryParam) {
+                path = `${this.pathUrl}/api/products/category-product/${categoryParam}?ordering=${ordering}`;
+            }
+            axios
+                .get(path)
+                .then(response => {
+                    this.catalog = response.data;
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+
+        applyFilters() {
+            const params = new URLSearchParams();
+            if (this.minPrice !== null) {
+                params.append('price__gte', this.minPrice);
+            }
+            if (this.maxPrice !== null) {
+                params.append('price__lte', this.maxPrice);
+            }
+            this.fetchFilteredProducts(params);
+        },
+        fetchFilteredProducts(params) {
+            const queryParams = new URLSearchParams(window.location.search);
+            const categoryParam = queryParams.get('category');
+
+
+
+            let path = `${this.pathUrl}/api/products/all-product?${params.toString()}`;
+            if (categoryParam) {
+                path = `${this.pathUrl}/api/products/category-product/${categoryParam}?${params.toString()}`;
+            }
+            axios
+                .get(path)
+                .then(response => {
+                    this.catalog = response.data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
         toggleSort() {
             this.sort = !this.sort;
             if (this.sort) {
@@ -247,46 +194,46 @@ export default {
         },
         getImage1(category) {
             const imageMap = {
-                office: '/img/office1.png',
-                kids: '/img/kids1.png',
-                stickers: '/img/stickers1.png',
-                cloth: '/img/cloth1.png',
-                cases: '/img/cases1.png',
-                posters: '/img/posters1.png',
-                households: '/img/households1.png',
-                pets: '/img/pets1.png',
-                accessories: '/img/accessories1.png',
-                gifts: '/img/gits1.png'
+                8: '/img/office1.png',
+                9: '/img/kids1.png',
+                1: '/img/stickers1.png',
+                2: '/img/cloth1.png',
+                3: '/img/cases1.png',
+                4: '/img/posters1.png',
+                5: '/img/households1.png',
+                7: '/img/pets1.png',
+                6: '/img/accessories1.png',
+                10: '/img/gits1.png'
             };
             return imageMap[category] || '';
         },
         getImage2(category) {
             const imageMap = {
-                office: '/img/office2.png',
-                kids: '/img/kids2.png',
-                stickers: '/img/stickers2.png',
-                cloth: '/img/cloth2.png',
-                cases: '/img/cases2.png',
-                posters: '/img/posters2.png',
-                households: '/img/households2.png',
-                pets: '/img/pets2.png',
-                accessories: '/img/accessories2.png',
-                gifts: '/img/gits2.png'
+                8: '/img/office2.png',
+                9: '/img/kids2.png',
+                1: '/img/stickers2.png',
+                2: '/img/cloth2.png',
+                3: '/img/cases2.png',
+                4: '/img/posters2.png',
+                5: '/img/households2.png',
+                7: '/img/pets2.png',
+                6: '/img/accessories2.png',
+                10: '/img/gits2.png'
             };
             return imageMap[category] || '';
         },
         getCategoryName(category) {
             const categoryNameMap = {
-                office: 'КАНЦЕЛЯРИЯ',
-                kids: 'Для Детей',
-                stickers: 'Стикеры',
-                cloth: 'Одежда',
-                cases: 'Чехлы на\nтелефон',
-                posters: 'Постеры',
-                households: 'Товары для дома',
-                pets: 'ДЛЯ ПИТОМЦЕВ',
-                accessories: 'Аксессуары',
-                gifts: 'Подарочные наборы'
+                8: 'КАНЦЕЛЯРИЯ',
+                9: 'Для Детей',
+                1: 'Стикеры',
+                2: 'Одежда',
+                3: 'Чехлы на\nтелефон',
+                4: 'Постеры',
+                5: 'Товары для дома',
+                7: 'ДЛЯ ПИТОМЦЕВ',
+                6: 'Аксессуары',
+                10: 'Подарочные наборы'
             };
             return categoryNameMap[category] || '';
         },
@@ -297,6 +244,11 @@ export default {
             return this.$route.query.category || 'catalog';
         },
     },
+    mounted() {
+
+        this.getCatalog()
+
+    }
 }
 </script>
 <script setup>

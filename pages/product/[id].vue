@@ -1,43 +1,44 @@
 <template>
     <div class="product">
         <PrevPage></PrevPage>
-
-        <div class="product__block">
-            <h1>чехол на телефон</h1>
+        <div v-if="product.length <= 0"></div>
+        <div class="product__block" v-else>
+            <h1>{{ category }}</h1>
 
             <div class="product__body">
                 <div class="product__images">
                     <div class="main__image">
-                        <img src="@/assets/img/product1.png" alt="">
+                        <img :src="product.add_image[0].image" alt="">
                     </div>
                     <div class="slider__block">
 
                         <div class="image__slider">
-                            <img src="@/assets/img/product2.png" alt="">
-                            <img src="@/assets/img/product2.png" alt="">
-                            <img src="@/assets/img/product2.png" alt="">
-                            <img src="@/assets/img/product2.png" alt="">
+                            <img v-for="item in filteredImages" :key="item.id" :src="item.image">
                         </div>
 
                     </div>
                 </div>
                 <div class="product__desc">
-                    <h2>Силиконовый чехол для телефона Iphone 13</h2>
-                    <div v-html="description"></div>
+                    <h2>{{ product.name }}</h2>
+                    <div v-html="product.description"></div>
 
                     <div class="add__infgo">
-                        <span class="seller">Продавец: <NuxtLink to='/'>ShopCases</NuxtLink></span>
-                        <span>Материал: <small>силикон</small></span>
-                        <span>Производитель: <small>Китай</small></span>
+                        <span class="seller">Продавец: <NuxtLink :to='"/seller/" + seller.id'>{{ seller.user.first_name }}
+                            </NuxtLink></span>
 
                         <div class="price">
-                            <h3>4990 ₸</h3>
-                            <button>добавить в корзину</button>
+                            <h3 v-if="product.discount > 0">{{ (Math.floor(product.price - ((product.price *
+                                product.discount) /
+                                100))).toLocaleString() + ' ₸' }}</h3>
+                            <h3 v-else>{{ product.price == 0 ? 'Бесплатно' : product.price.toLocaleString() + ' ₸' }}</h3>
+                            <button @click="addToCart()" v-if="accType == 'buyer' || accType == ''" ref="cartBtn">добавить в
+                                корзину</button>
                         </div>
                     </div>
                 </div>
                 <div class="product__author">
-                    <span>Продавец: <NuxtLink to='/'>ShopCases</NuxtLink></span>
+                    <span>Продавец: <NuxtLink :to='"/seller/" + seller.id'>{{ seller.user.first_name }}
+                        </NuxtLink></span>
                 </div>
             </div>
 
@@ -45,94 +46,22 @@
                 <h1>похожие товары</h1>
 
                 <div class="similar__body">
-                    <NuxtLink to="/catalog" class="similar__block">
-                        <img src="@/assets/img/sale3.png" alt="">
+                    <NuxtLink v-for="item in product.similar_products" :to="'/product/' + item.id" class="similar__block">
+                        <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="similar__block">
-                        <img src="@/assets/img/sale3.png" alt="">
-
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
+                        <h1>{{ item.name }}</h1>
 
                         <div class="price">
                             <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
+                                <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                                    100))).toLocaleString() + ' ₸' }}</span>
+                                <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                                <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                             </div>
 
-                            <p class="mb-0">-10%</p>
+                            <p class="mb-0" v-if="item.discount > 0">-{{ item.discount }}%</p>
                         </div>
                     </NuxtLink>
-                    <NuxtLink to="/catalog" class="similar__block">
-                        <img src="@/assets/img/sale3.png" alt="">
-
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="similar__block">
-                        <img src="@/assets/img/sale3.png" alt="">
-
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="similar__block">
-                        <img src="@/assets/img/sale3.png" alt="">
-
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="similar__block">
-                        <img src="@/assets/img/sale3.png" alt="">
-
-                        <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                        <div class="price">
-                            <div>
-                                <span>6990 ₸</span>
-                                <small>7690 ₸</small>
-                            </div>
-
-                            <p class="mb-0">-10%</p>
-                        </div>
-                    </NuxtLink>
-                </div>
-
-                <div class="text-right showmore">
-                    <button ref="showmore">показать еще</button>
                 </div>
             </div>
         </div>
@@ -142,7 +71,10 @@
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
             description: 'Описание тут будет Описание тут будет Описание тут будет Описание тут будет Описание тут будет Описание тут будет Описание тут будет Описание тут будет Описание тут будет Описание тут будет Описание тут будет',
@@ -163,6 +95,77 @@ export default {
                     spaceBetween: 25,
                 }
             },
+            productId: this.$route.params.id,
+            product: [],
+            seller: [],
+            pathUrl: 'https://merchshop.kz',
+            category: '',
+            rating: null,
+            count: null,
+            accType: '',
+        }
+    },
+    computed: {
+        filteredImages() {
+            return this.product.add_image.slice(1);
+        }
+    },
+    methods: {
+        addToCart() {
+            const path = `${this.pathUrl}/api/buyer/add-product-basket`
+            const csrf = this.getCSRFToken()
+            axios.defaults.headers.common['X-CSRFToken'] = csrf;
+            axios
+                .post(path, {
+                    products: this.product.id,
+                    amount: 1,
+                })
+                .then(response => {
+                    if (response.status == 201) {
+                        this.$refs.cartBtn.innerHTML = 'Добавлен'
+                        this.$refs.cartBtn.disabled = true
+                        this.$refs.cartBtn.classList.add('disabled')
+                    }
+                    else {
+                        this.$refs.cartBtn.innerHTML = 'Ошибка'
+                        this.$refs.cartBtn.disabled = false
+
+                    }
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        },
+        getProduct() {
+            const path = `${this.pathUrl}/api/products/detail-product/${this.productId}`
+            axios
+                .get(path)
+                .then(response => {
+                    this.product = response.data
+                    this.seller = response.data.seller
+                    this.rating = response.data.seller.rating
+                    this.category = response.data.category.category_name
+                    this.count = response.data.seller.amount_products
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        },
+    },
+    mounted() {
+        this.getProduct()
+
+        const accType = localStorage.getItem('accountType')
+        if (accType == 'buyer-account') {
+            this.accType = 'buyer'
+        }
+        else if (accType == 'seller-account') {
+            this.accType = 'seller'
+        }
+        else {
+            this.accType = ''
+            console.log('not authorized')
         }
     }
 }

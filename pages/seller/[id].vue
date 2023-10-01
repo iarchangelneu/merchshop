@@ -1,15 +1,16 @@
 <template>
-    <div class="seller">
+    <div v-if="author.length <= 0"></div>
+    <div class="seller" v-else>
         <PrevPage></PrevPage>
-        <h1>SHOPCASE</h1>
+        <h1>{{ author.user.first_name }}</h1>
 
         <div class="seller__info">
-            <img src="@/assets/img/seller.png" alt="">
+            <img :src="author.photo" alt="">
 
             <div class="seller__desc">
                 <h2>Описание:</h2>
 
-                <div v-html="description"></div>
+                <div v-html="author.description"></div>
             </div>
         </div>
 
@@ -17,104 +18,58 @@
             <h1>товары продавца</h1>
 
             <div class="similar__body">
-                <NuxtLink to="/catalog" class="similar__block">
-                    <img src="@/assets/img/sale3.png" alt="">
+                <NuxtLink v-for=" item  in  author.products " :to="'/product/' + item.id" class="similar__block">
+                    <img :src="item.add_image[0].image" alt="">
 
-                    <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                    <div class="price">
-                        <div>
-                            <span>6990 ₸</span>
-                            <small>7690 ₸</small>
-                        </div>
-
-                        <p class="mb-0">-10%</p>
-                    </div>
-                </NuxtLink>
-                <NuxtLink to="/catalog" class="similar__block">
-                    <img src="@/assets/img/sale3.png" alt="">
-
-                    <h1>ЧЕХОЛ С POP SOCKET</h1>
+                    <h1>{{ item.name }}</h1>
 
                     <div class="price">
                         <div>
-                            <span>6990 ₸</span>
-                            <small>7690 ₸</small>
+                            <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                                100))).toLocaleString() + ' ₸' }}</span>
+                            <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                            <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                         </div>
 
-                        <p class="mb-0">-10%</p>
-                    </div>
-                </NuxtLink>
-                <NuxtLink to="/catalog" class="similar__block">
-                    <img src="@/assets/img/sale3.png" alt="">
-
-                    <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                    <div class="price">
-                        <div>
-                            <span>6990 ₸</span>
-                            <small>7690 ₸</small>
-                        </div>
-
-                        <p class="mb-0">-10%</p>
-                    </div>
-                </NuxtLink>
-                <NuxtLink to="/catalog" class="similar__block">
-                    <img src="@/assets/img/sale3.png" alt="">
-
-                    <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                    <div class="price">
-                        <div>
-                            <span>6990 ₸</span>
-                            <small>7690 ₸</small>
-                        </div>
-
-                        <p class="mb-0">-10%</p>
-                    </div>
-                </NuxtLink>
-                <NuxtLink to="/catalog" class="similar__block">
-                    <img src="@/assets/img/sale3.png" alt="">
-
-                    <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                    <div class="price">
-                        <div>
-                            <span>6990 ₸</span>
-                            <small>7690 ₸</small>
-                        </div>
-
-                        <p class="mb-0">-10%</p>
-                    </div>
-                </NuxtLink>
-                <NuxtLink to="/catalog" class="similar__block">
-                    <img src="@/assets/img/sale3.png" alt="">
-
-                    <h1>ЧЕХОЛ С POP SOCKET</h1>
-
-                    <div class="price">
-                        <div>
-                            <span>6990 ₸</span>
-                            <small>7690 ₸</small>
-                        </div>
-
-                        <p class="mb-0">-10%</p>
+                        <p class="mb-0" v-if="item.discount > 0">-{{ item.discount }}%</p>
                     </div>
                 </NuxtLink>
             </div>
 
-            <div class="text-right showmore">
-                <button ref="showmore">показать еще</button>
-            </div>
         </div>
     </div>
 </template>
 <script>
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
+            productId: this.$route.params.id,
+            author: [],
+            pathUrl: 'https://merchshop.kz',
+            products: [],
             description: 'Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание Тут будет описание'
         }
+    },
+    methods: {
+        getAuthor() {
+            const path = `${this.pathUrl}/api/seller/seller-this/${this.productId}`
+            axios
+                .get(path)
+                .then(response => {
+                    this.author = response.data
+                    this.products = response.data.products
+
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }
+    },
+    mounted() {
+        this.getAuthor()
     }
 }
 </script>

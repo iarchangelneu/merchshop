@@ -80,7 +80,7 @@ export default {
     data() {
         return {
             selectedCategory: null,
-            pathUrl: 'https://studynow.kz',
+            pathUrl: 'https://merchshop.kz',
             discount: 0,
             price: 0,
             name: '',
@@ -109,10 +109,10 @@ export default {
         async submitForm() {
             const csrf = this.getCSRFToken()
             if (this.name.length > 0) {
-                this.$refs.name.style.borderColor = '#000'
+                this.$refs.name.style.borderColor = '#D2D2D2'
 
                 if (this.selectedCategory != null) {
-                    this.$refs.select.style.borderColor = '#000'
+                    this.$refs.select.style.borderColor = '#D2D2D2'
                     const path = `${this.pathUrl}/api/seller/seller-lk/add-product/`
                     const formData = new FormData();
 
@@ -231,10 +231,10 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 
 useSeoMeta({
-    title: 'Добавление курса | Studynow',
-    ogTitle: 'Добавление курса | Studynow',
-    description: 'Добавление курса | Studynow',
-    ogDescription: 'Добавление курса | Studynow',
+    title: 'Добавление курса | MerchShop',
+    ogTitle: 'Добавление курса | MerchShop',
+    description: 'Добавление курса | MerchShop',
+    ogDescription: 'Добавление курса | MerchShop',
 })
 
 

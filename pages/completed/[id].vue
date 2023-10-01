@@ -2,7 +2,7 @@
     <div class="page">
         <div class="text-center">
             <h1>вАШ ЗАКАЗ УСПЕШНО ОФОРМЛЕН! информация о товаре отправлена на вашу почту</h1>
-            <h2>номер заказа: 540291</h2>
+            <h2>номер заказа: {{ order_id }}</h2>
 
             <NuxtLink to="/catalog">продолжить покупки</NuxtLink>
         </div>
@@ -12,7 +12,7 @@
 export default {
     data() {
         return {
-
+            order_id: this.$route.params.id,
         }
     }
 }

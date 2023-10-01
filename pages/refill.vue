@@ -5,7 +5,7 @@
             <div class="text-center">
                 <h1>Пополнение баланса</h1>
             </div>
-            <div class="type">
+            <div class="type" v-if="accountType == 'buyer'">
                 <NuxtLink to="/refill">
                     Пополнение
                 </NuxtLink>
@@ -30,7 +30,7 @@
 
             <div class="input">
                 <input type="number" name="count" id="count" placeholder="100 ₸" v-model="count">
-                <button>Пополнить</button>
+                <button @click="inMoney()" ref="inBtn">Пополнить</button>
             </div>
 
             <div class="selects">
@@ -44,12 +44,64 @@
     </div>
 </template>
 <script>
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
             count: null,
+            accountType: '',
+            pathUrl: 'https://merchshop.kz',
         }
-    }
+    },
+    methods: {
+        inMoney() {
+            const token = this.getAuthorizationCookie()
+            const csrf = this.getCSRFToken()
+            const path = `${this.pathUrl}/api/money/new-pay`
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+            axios.defaults.headers.common['X-CSRFToken'] = csrf;
+            this.$refs.inBtn.innerHTML = 'Ожидайте'
+
+            axios
+                .post(path, {
+                    amount: this.count
+                })
+                .then(response => {
+                    console.log(response)
+                    window.location.href = response.data.url
+                    if (response.status = 201) {
+                        this.$refs.inBtn.innerHTML = 'Пополнить'
+                    }
+                    if (response.status == 228) {
+                        this.$refs.outBtn.innerHTML = response.data.error_msg
+                    }
+                })
+                .catch(error => {
+                    console.error(error)
+                    this.$refs.inBtn.innerHTML = 'Пополнить'
+                })
+        }
+    },
+    mounted() {
+        const accType = localStorage.getItem('accountType')
+        if (accType !== 'buyer-account' && accType !== 'seller-account') {
+            window.location.href = '/login'
+        }
+        if (accType == 'buyer-account') {
+            this.accountType = 'buyer'
+
+        }
+        else if (accType == 'seller-account') {
+            this.accountType = 'seller'
+        }
+        else {
+            return
+        }
+
+    },
+
 }
 </script>
 <script setup>

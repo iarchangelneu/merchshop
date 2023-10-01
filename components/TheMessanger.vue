@@ -86,7 +86,7 @@ export default {
             newId: this.chatId,
             messages: [],
             isTest: false,
-            pathUrl: 'https://studynow.kz',
+            pathUrl: 'https://merchshop.kz',
             msg: [],
             socket: null,
             isSeller: false,
@@ -197,7 +197,7 @@ export default {
             this.startChat()
         },
         startChat() {
-            this.socket = new WebSocket(`wss://studynow.kz/ws/messanger/open-chat/${this.newId}`);
+            this.socket = new WebSocket(`wss://MerchShop.kz/ws/messanger/open-chat/${this.newId}`);
             this.socket.addEventListener('open', this.onSocketOpen);
             this.socket.addEventListener('message', this.onSocketMessage);
             this.socket.addEventListener('close', this.onSocketClose);
@@ -235,10 +235,10 @@ export default {
 </script>
 <script setup>
 useSeoMeta({
-    title: 'Мессенджер | Studynow',
-    ogTitle: 'Мессенджер | Studynow',
-    description: 'Мессенджер | Studynow',
-    ogDescription: 'Мессенджер | Studynow',
+    title: 'Мессенджер | MerchShop',
+    ogTitle: 'Мессенджер | MerchShop',
+    description: 'Мессенджер | MerchShop',
+    ogDescription: 'Мессенджер | MerchShop',
 })
 </script>
 <style lang="scss" scoped>

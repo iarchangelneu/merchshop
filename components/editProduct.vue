@@ -82,7 +82,7 @@ export default {
     },
     data() {
         return {
-            pathUrl: 'https://studynow.kz',
+            pathUrl: 'https://merchshop.kz',
             selectedCategory: null,
             discount: 0,
             price: 0,
@@ -124,9 +124,11 @@ export default {
             formData.append('category', this.selectedCategory);
             formData.append('price', this.price);
             formData.append('discount', this.discount);
-            filesToUpload.forEach(file => {
-                formData.append('add_image', file);
-            });
+            if (this.uploadedImages.length > 0) {
+                filesToUpload.forEach(file => {
+                    formData.append('add_image', file);
+                });
+            }
             formData.append('description', this.description);
             formData.append('short_description', this.shortDesc);
             formData.append('key_features', this.courseFeaturesText);
@@ -245,10 +247,10 @@ import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 useSeoMeta({
-    title: 'Редактирование курса | Studynow',
-    ogTitle: 'Редактирование курса | Studynow',
-    description: 'Редактирование курса | Studynow',
-    ogDescription: 'Редактирование курса | Studynow',
+    title: 'Редактирование курса | MerchShop',
+    ogTitle: 'Редактирование курса | MerchShop',
+    description: 'Редактирование курса | MerchShop',
+    ogDescription: 'Редактирование курса | MerchShop',
 })
 </script>
 <style lang="scss" scoped>

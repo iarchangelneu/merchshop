@@ -12,10 +12,6 @@
             </div>
             <div>
                 <button @click="activeTab = 2" :class="{ activeTab: activeTab == 2 }">транзакции</button>
-                <button @click="activeTab = 3" :class="{ activeTab: activeTab == 3 || activeTab == 7 }">обратная
-                    связь</button>
-            </div>
-            <div>
                 <button @click="activeTab = 4" :class="{ activeTab: activeTab == 4 }">аккаунт</button>
             </div>
         </div>
@@ -27,98 +23,34 @@
                 </button>
             </div>
             <div class="sale__slider salesmob">
-                <div class="slide">
+                <div class="slide" v-for="item in products" :key="item.id">
                     <div class="images">
-                        <img src="@/assets/img/sale3.png" alt="">
-                        <img src="@/assets/img/sale3.png" alt="">
-                        <img src="@/assets/img/sale3.png" alt="">
+                        <img v-for="img in item.add_image.slice(0, 3)" :src="pathUrl + '/api' + img.image" alt="">
                     </div>
 
-                    <h1>чехол на телефон</h1>
-                    <h1>19 070 ₸</h1>
+                    <h1>{{ item.name }}</h1>
+                    <h1>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</h1>
 
                     <div class="buttons">
-                        <button @click="activeTab = 6">Изменить</button>
-                        <NuxtLink to="/product/1">страница товара</NuxtLink>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="images">
-                        <img src="@/assets/img/sale3.png" alt="">
-                        <img src="@/assets/img/sale3.png" alt="">
-                        <img src="@/assets/img/sale3.png" alt="">
-                    </div>
-
-                    <h1>чехол на телефон</h1>
-                    <h1>19 070 ₸</h1>
-
-                    <div class="buttons">
-                        <button @click="activeTab = 6">Изменить</button>
-                        <NuxtLink to="/product/1">страница товара</NuxtLink>
+                        <button @click="openEditTab(item.id)">Изменить</button>
+                        <NuxtLink :to="'/product/' + item.id">страница товара</NuxtLink>
                     </div>
                 </div>
             </div>
             <div class="sale__slider salespc">
-                <swiper :slides-per-view="4" :auto-height="true" :space-between="30" :breakpoints="breakpoints"
+                <swiper :slides-per-view="3" :auto-height="true" :space-between="30" :breakpoints="breakpoints"
                     :modules="modules" :navigation="navigation2">
-                    <swiper-slide class="slide">
+                    <swiper-slide class="slide" v-for="item in products" :key="item.id">
                         <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
+                            <img v-for="img in item.add_image.slice(0, 3)" :src="pathUrl + '/api' + img.image" alt="">
                         </div>
 
-                        <h1>чехол на телефон</h1>
-                        <h1>19 070 ₸</h1>
+                        <h1>{{ item.name }}</h1>
+                        <h1>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</h1>
 
                         <div class="buttons">
-                            <button @click="activeTab = 6">Изменить</button>
-                            <NuxtLink to="/product/1">страница товара</NuxtLink>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="slide">
-                        <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                        </div>
-
-                        <h1>чехол на телефон</h1>
-                        <h1>19 070 ₸</h1>
-
-                        <div class="buttons">
-                            <button>Изменить</button>
-                            <NuxtLink to="/product/1">страница товара</NuxtLink>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="slide">
-                        <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                        </div>
-
-                        <h1>чехол на телефон</h1>
-                        <h1>19 070 ₸</h1>
-
-                        <div class="buttons">
-                            <button>Изменить</button>
-                            <NuxtLink to="/product/1">страница товара</NuxtLink>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="slide">
-                        <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                        </div>
-
-                        <h1>чехол на телефон</h1>
-                        <h1>19 070 ₸</h1>
-
-                        <div class="buttons">
-                            <button>Изменить</button>
-                            <NuxtLink to="/product/1">страница товара</NuxtLink>
+                            <button @click="openEditTab(item.id)">Изменить</button>
+                            <NuxtLink :to="'/product/' + item.id">страница товара</NuxtLink>
                         </div>
                     </swiper-slide>
 
@@ -131,87 +63,36 @@
         </div>
         <div class="mysales" v-if="activeTab == 1">
             <div class="sale__slider salesmob">
-                <div class="slide">
+                <div class="slide" v-for="item in sales" :key="item.order_id">
                     <div class="images">
-                        <img src="@/assets/img/sale3.png" alt="">
-                        <img src="@/assets/img/sale3.png" alt="">
-                        <img src="@/assets/img/sale3.png" alt="">
+                        <NuxtLink v-for="link in item.items" :to="'/product/' + link.products.id"
+                            style="border: 0; padding: 0;">
+                            <img :src="pathUrl + '/api' + link.products.add_image[0].image" alt="">
+                        </NuxtLink>
                     </div>
 
-                    <h1>ЗАКАЗ №383027</h1>
-                    <span>ДАТА Продажи: 05.09.2023</span>
-                    <h1>19 070 ₸</h1>
+                    <h1>ЗАКАЗ №{{ item.order_id }}</h1>
+                    <span>ДАТА Продажи: {{ formatDate(item.items[0].date) }}</span>
+                    <h1>{{ item.full_price.toLocaleString() + ' ₸' }}</h1>
 
-                    <div class="buttons">
-                        <button @click="activeTab = 6">ЧАТ С Покупателем</button>
-                    </div>
                 </div>
             </div>
             <div class="sale__slider salespc">
                 <swiper :slides-per-view="4" :auto-height="true" :space-between="30" :breakpoints="breakpoints"
                     :modules="modules" :navigation="navigation2">
-                    <swiper-slide class="slide">
+                    <swiper-slide class="slide" v-for="item in sales" :key="item.order_id">
                         <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
+                            <NuxtLink v-for="link in item.items" :to="'/product/' + link.products.id"
+                                style="border: 0; padding: 0;">
+                                <img :src="pathUrl + '/api' + link.products.add_image[0].image" alt="">
+                            </NuxtLink>
                         </div>
 
-                        <h1>ЗАКАЗ №383027</h1>
-                        <span>ДАТА Продажи: 05.09.2023</span>
-                        <h1>19 070 ₸</h1>
+                        <h1>ЗАКАЗ №{{ item.order_id }}</h1>
+                        <span>ДАТА Продажи: {{ formatDate(item.items[0].date) }}</span>
+                        <h1>{{ item.full_price.toLocaleString() + ' ₸' }} </h1>
 
-                        <div class="buttons">
-                            <button @click="activeTab = 6">ЧАТ С Покупателем</button>
-                        </div>
                     </swiper-slide>
-                    <swiper-slide class="slide">
-                        <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                        </div>
-
-                        <h1>ЗАКАЗ №383027</h1>
-                        <span>ДАТА Продажи: 05.09.2023</span>
-                        <h1>19 070 ₸</h1>
-
-                        <div class="buttons">
-                            <button @click="activeTab = 6">ЧАТ С Покупателем</button>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="slide">
-                        <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                        </div>
-
-                        <h1>ЗАКАЗ №383027</h1>
-                        <span>ДАТА Продажи: 05.09.2023</span>
-                        <h1>19 070 ₸</h1>
-
-                        <div class="buttons">
-                            <button @click="activeTab = 6">ЧАТ С Покупателем</button>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="slide">
-                        <div class="images">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                            <img src="@/assets/img/sale3.png" alt="">
-                        </div>
-
-                        <h1>ЗАКАЗ №383027</h1>
-                        <span>ДАТА Продажи: 05.09.2023</span>
-                        <h1>19 070 ₸</h1>
-
-                        <div class="buttons">
-                            <button @click="activeTab = 6">ЧАТ С Покупателем</button>
-                        </div>
-                    </swiper-slide>
-
-
                 </swiper>
                 <div class="swipernavs">
                     <img src="@/assets/img/prev.svg" class="prev" alt="">
@@ -219,19 +100,6 @@
                 </div>
             </div>
         </div>
-        <div class="chats" v-if="activeTab == 3">
-            <div class="chat__item">
-                <div>
-                    <h2>alex.ivanov@gmail.com</h2>
-                </div>
-
-                <div class="justify-content-end">
-                    <button @click="activeTab = 7">Открыть чат</button>
-                </div>
-            </div>
-
-        </div>
-
         <div class="accs" v-if="activeTab == 4">
             <div class="account__profile">
                 <div class="profile__left">
@@ -278,21 +146,32 @@
         <TheTrans v-if="activeTab == 2" :transactions="transactions"></TheTrans>
         <CreateProduct v-if="activeTab == 5"></CreateProduct>
         <EditProduct v-if="activeTab == 6" :productId="sendId"></EditProduct>
-        <TheMessanger v-if="activeTab == 7" :chatId="chatId" :name="chatName"></TheMessanger>
     </div>
 </template>
 <script>
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import global from '~/mixins/global';
+import axios from 'axios';
 export default {
+    mixins: [global],
     data() {
         return {
             transactions: [],
             sendId: null,
             chatId: null,
             activeTab: 0,
-            transactions: [],
+            account: [],
+            avatar: null,
+            name: '',
+            email: '',
+            description: '',
+            photo: '',
+            products: [],
+            chats: [],
+            sales: [],
+            myId: null,
             modules: [Navigation],
             navigation2: {
                 nextEl: '.next',
@@ -311,7 +190,198 @@ export default {
                 }
             },
         }
-    }
+    },
+    computed: {
+        avatarUrl() {
+            if (this.avatar) {
+                return URL.createObjectURL(this.avatar);
+            } else {
+                return this.photo;
+            }
+        },
+    },
+    methods: {
+        openChat(chatId, chatName) {
+            this.activeTab = 7;
+            this.chatId = chatId;
+            this.chatName = chatName
+        },
+        createChat(id, name) {
+            const token = this.getAuthorizationCookie()
+            const csrf = this.getCSRFToken()
+            const path = `${this.pathUrl}/api/messanger/new-chat`
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+            axios.defaults.headers.common['X-CSRFToken'] = csrf;
+            axios
+                .post(path, {
+                    buyer: id,
+                    seller: this.myId,
+                })
+                .then(response => {
+                    const chatId = response.data.chat_id
+                    this.openChat(chatId, name)
+                })
+                .catch(error => console.log(error))
+        },
+        formatDate(dateString) {
+            const date = new Date(dateString);
+            const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
+            return formattedDate;
+        },
+        openChat(chatId, chatName) {
+            this.activeTab = 7;
+            this.chatId = chatId;
+            this.chatName = chatName
+        },
+        getChats() {
+            const token = this.getAuthorizationCookie()
+            const path = `${this.pathUrl}/api/messanger/all-chats`
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
+            axios
+                .get(path)
+                .then(response => {
+                    this.chats = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        openFileInput() {
+            this.$refs.fileInput.click();
+        },
+        handleFileChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                this.avatar = file;
+                event.target.value = null;
+                console.log("Выбран файл:", file);
+            }
+        },
+        openEditTab(productId) {
+            this.activeTab = 6;
+            this.sendId = productId;
+        },
+        changeTab(index) {
+            this.activeTab = index;
+            this.updateHighlightPosition(index);
+        },
+        getAccount() {
+            const token = this.getAuthorizationCookie();
+            const path = `${this.pathUrl}/api/seller/seller-lk`;
+            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
+            axios
+                .get(path)
+                .then(response => {
+                    // Сохраняем остальные данные
+                    this.account = response.data;
+                    this.name = response.data.user.first_name;
+                    this.email = response.data.user.email;
+                    this.description = response.data.description;
+                    this.photo = this.pathUrl + '/api' + response.data.photo;
+                    this.products = response.data.products;
+                    this.transactions = response.data.transactions;
+                    this.myId = response.data.id;
+
+                    // Обработка my_sales
+                    const groupedSales = {};
+
+                    response.data.my_sales.forEach(sale => {
+                        const dateKey = sale.date; // Здесь выберите ключ, по которому будет производиться группировка (например, дата).
+                        if (!groupedSales[dateKey]) {
+                            groupedSales[dateKey] = {
+                                order_id: null,
+                                items: [],
+                                full_price: 0,
+                                photos: [],
+                            };
+                        }
+
+                        groupedSales[dateKey].items.push(sale);
+
+                        groupedSales[dateKey].order_id = sale.id;
+
+                        let totalPriceInGroup = 0;
+
+                        groupedSales[dateKey].items.forEach(groupedItem => {
+                            if (
+                                typeof groupedItem.products.price === 'number' &&
+                                typeof groupedItem.amount === 'number' &&
+                                typeof groupedItem.products.discount === 'number'
+                            ) {
+                                const discountedPrice = groupedItem.products.price * (1 - groupedItem.products.discount / 100);
+
+                                totalPriceInGroup += discountedPrice * groupedItem.amount;
+                            }
+                        });
+
+                        groupedSales[dateKey].full_price = totalPriceInGroup;
+
+                        if (sale.products.add_image && sale.products.add_image.length > 0) {
+                            groupedSales[dateKey].photos.push(sale.products.add_image[0].image);
+                        }
+                    });
+
+                    // Записываем данные в this.sales
+                    this.sales = groupedSales;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+
+        editAccount() {
+
+            const path = `${this.pathUrl}/api/seller/seller-lk/edit/`
+            const csrf = this.getCSRFToken()
+
+            const formData = new FormData();
+            formData.append('user.[first_name]', this.name);
+            formData.append('user.[email]', this.email);
+
+            formData.append('description', this.description);
+            if (this.avatar == null) {
+                formData.append('photo', '');
+            }
+            else {
+                formData.append('photo', this.avatar);
+            }
+
+            axios.defaults.headers.common['X-CSRFToken'] = csrf;
+            this.$refs.edit.innerHTML = 'Сохраняем'
+
+            axios
+                .put(path, formData)
+                .then((res) => {
+                    //   console.log('Отправленные данные:', JSON.stringify(res.config.data, null, 2));
+                    if (res.status == 200) {
+                        this.$refs.edit.innerHTML = 'Успешно'
+                        this.name = res.data.user.first_name
+                        this.description = res.data.description
+                        this.email = res.data.user.email
+                    }
+                    else {
+                        this.$refs.edit.innerHTML = 'Ошибка'
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+
+                });
+        },
+    },
+    mounted() {
+        const accType = localStorage.getItem('accountType')
+        console.log(accType)
+        if (accType == 'seller-account') {
+            this.getAccount()
+            this.getChats()
+        }
+        else {
+            window.location.href = '/login'
+        }
+    },
 }
 </script>
 <script setup>
