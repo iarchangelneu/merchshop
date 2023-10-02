@@ -10,7 +10,7 @@
                 <div class="right">
                     <img src="@/assets/img/cart.svg" v-if="accountUrl == '/buyer-account'" style="cursor: pointer;" alt=""
                         @click.stop="toggleCart">
-                    <NuxtLink :to="this.accountUrl">
+                    <NuxtLink :to="accountUrl">
                         <img src="@/assets/img/account.svg" alt="">
                     </NuxtLink>
                     <NuxtLink to="/withdrawal" v-if="accountUrl == '/buyer-account' || accountUrl == '/seller-account'">
