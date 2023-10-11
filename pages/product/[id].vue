@@ -46,18 +46,21 @@
 
             <div class="similar__products">
                 <h1>похожие товары</h1>
-
-                <div class="similar__body">
+                <div v-if="product.length <= 0"></div>
+                <div class="similar__body" v-else>
                     <NuxtLink v-for="item in product.similar_products" :to="'/product/' + item.id" class="similar__block">
+
                         <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
                         <h1>{{ item.name }}</h1>
 
                         <div class="price">
                             <div>
-                                <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount) /
+                                <span v-if="item.discount > 0">{{ (Math.floor(item.price - ((item.price * item.discount)
+                                    /
                                     100))).toLocaleString() + ' ₸' }}</span>
-                                <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸' }}</span>
+                                <span v-else>{{ item.price == 0 ? 'Бесплатно' : item.price.toLocaleString() + ' ₸'
+                                }}</span>
                                 <small v-if="item.discount > 0">{{ item.price.toLocaleString() + ' ₸' }}</small>
                             </div>
 
@@ -111,7 +114,7 @@ export default {
     },
     computed: {
         filteredImages() {
-            return this.product.add_image.slice(1);
+            return this.product.add_image;
         }
     },
     methods: {
@@ -180,7 +183,7 @@ export default {
             handler(newVal, oldVal) {
                 if (newVal && newVal.add_image) {
                     this.mainImage = newVal.add_image[0].image;
-                    this.filteredImages = newVal.add_image.slice(1, 5);
+                    this.filteredImages = newVal.add_image;
                 }
             },
             deep: true
