@@ -8,14 +8,13 @@
             <div class="product__body">
                 <div class="product__images">
                     <div class="main__image">
-                        <img :src="product.add_image[0].image" alt="">
+                        <img :src="mainImage" alt="">
                     </div>
                     <div class="slider__block">
-
                         <div class="image__slider">
-                            <img v-for="item in filteredImages" :key="item.id" :src="item.image">
+                            <img v-for="item in filteredImages" :key="item.id" :src="item.image"
+                                @click="changeMainImage(item.image)">
                         </div>
-
                     </div>
                 </div>
                 <div class="product__desc">
@@ -101,6 +100,8 @@ export default {
             productId: this.$route.params.id,
             product: [],
             seller: [],
+            mainImage: "",
+            filteredImages: [],
             pathUrl: 'https://merchshop.kz',
             category: '',
             rating: null,
@@ -114,6 +115,9 @@ export default {
         }
     },
     methods: {
+        changeMainImage(newImage) {
+            this.mainImage = newImage;
+        },
         addToCart() {
             const path = `${this.pathUrl}/api/buyer/add-product-basket`
             const csrf = this.getCSRFToken()
@@ -170,7 +174,18 @@ export default {
             this.accType = ''
             console.log('not authorized')
         }
-    }
+    },
+    watch: {
+        product: {
+            handler(newVal, oldVal) {
+                if (newVal && newVal.add_image) {
+                    this.mainImage = newVal.add_image[0].image;
+                    this.filteredImages = newVal.add_image.slice(1, 5);
+                }
+            },
+            deep: true
+        }
+    },
 }
 </script>
 <script setup>
@@ -484,6 +499,9 @@ useSeoMeta({
             }
 
             .product__images {
+                img {
+                    cursor: pointer;
+                }
 
                 @media (max-width: 1024px) {
                     width: 100%;
