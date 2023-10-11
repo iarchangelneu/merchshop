@@ -165,6 +165,7 @@ useSeoMeta({
                 }
 
                 .price {
+                    margin-top: auto;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;

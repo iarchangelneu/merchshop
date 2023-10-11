@@ -31,8 +31,11 @@
                                 product.discount) /
                                 100))).toLocaleString() + ' ₸' }}</h3>
                             <h3 v-else>{{ product.price == 0 ? 'Бесплатно' : product.price.toLocaleString() + ' ₸' }}</h3>
+                            <h3 v-if="product.discount > 0" class="oldprice">{{ product.price.toLocaleString() + ' ₸' }}
+                            </h3>
                             <button @click="addToCart()" v-if="accType == 'buyer' || accType == ''" ref="cartBtn">добавить в
                                 корзину</button>
+
                         </div>
                     </div>
                 </div>
@@ -182,6 +185,11 @@ useSeoMeta({
 .product {
     padding: 150px 100px 60px;
 
+    .oldprice {
+        font-size: 16px !important;
+        text-decoration: line-through;
+    }
+
     @media (max-width: 1600px) {
         padding: 150px 50px 60px;
     }
@@ -266,6 +274,7 @@ useSeoMeta({
                 }
 
                 .price {
+                    margin-top: auto;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;

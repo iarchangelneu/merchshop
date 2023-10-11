@@ -51,7 +51,7 @@
             <NuxtLink class="catalog__block" v-for="item in catalog.results" :key="item.id" :to="'/product/' + item.id">
                 <img :src="pathUrl + '/api' + item.add_image[0]" alt="">
 
-                <h1>{{ item.name }}</h1>
+                <h1 style="overflow-wrap: break-word;">{{ item.name }}</h1>
 
                 <div class="price">
                     <div>
@@ -341,6 +341,7 @@ useSeoMeta({
             }
 
             .price {
+                margin-top: auto;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
