@@ -1,7 +1,7 @@
 <template>
     <div class="page">
         <div class="text-center">
-            <h1>ВЫВОД СРЕДСТВ ПРОШЕЛ УСПЕШНО</h1>
+            <h1>ТРАНЗАКЦИЯ ПРОШЛА УСПЕШНО</h1>
 
             <NuxtLink to="/">На главную</NuxtLink>
         </div>
@@ -50,10 +50,10 @@ export default {
 </script>
 <script setup>
 useSeoMeta({
-    title: 'Баланс успешно пополнен | MerchShop',
-    ogTitle: 'Баланс успешно пополнен | MerchShop',
-    description: 'Баланс успешно пополнен | MerchShop',
-    ogDescription: 'Баланс успешно пополнен | MerchShop',
+    title: 'Успешная транзакция | MerchShop',
+    ogTitle: 'Успешная транзакция | MerchShop',
+    description: 'Успешная транзакция | MerchShop',
+    ogDescription: 'Успешная транзакция | MerchShop',
 })
 </script>
 <style lang="scss" scoped>
