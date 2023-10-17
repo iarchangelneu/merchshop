@@ -38,7 +38,7 @@
 
             <div class="input">
                 <input type="number" name="count" id="count" placeholder="100 ₸" v-model="count">
-                <button ref="outBtn" @click="outMoney()">Пополнить</button>
+                <button ref="outBtn" @click="outMoney()">Вывести</button>
             </div>
 
             <div class="selects">
