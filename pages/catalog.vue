@@ -17,22 +17,19 @@
             </button>
 
             <div class="sort__block" :class="{ 'sort--open': sort }" @click="stopPropagation">
-                <label class="custom-checkbox">
-                    <input type="checkbox">
-                    <p class="checkbox-text m-0" @click="selectedSort = 2, sortBy('-price')">цена max</p>
-                </label>
-                <label class="custom-checkbox">
-                    <input type="checkbox">
-                    <p class="checkbox-text m-0" @click="selectedSort = 1, sortBy('price')">цена min</p>
-                </label>
-                <label class="custom-checkbox">
-                    <input type="checkbox">
-                    <p class="checkbox-text m-0" @click="selectedSort = 3, sortBy('-discount')">Скидки max</p>
-                </label>
-                <label class="custom-checkbox">
-                    <input type="checkbox">
-                    <p class="checkbox-text m-0" @click="selectedSort = 4, sortBy('discount')">Скидки min</p>
-                </label>
+
+                <p class="checkbox-text m-0" :class="{ activee: selectedSort == 1 }"
+                    @click="selectedSort = 1, sortBy('-price')">цена max</p>
+
+                <p class="checkbox-text m-0" :class="{ activee: selectedSort == 2 }"
+                    @click="selectedSort = 2, sortBy('price')">цена min</p>
+
+                <p class="checkbox-text m-0" :class="{ activee: selectedSort == 3 }"
+                    @click="selectedSort = 3, sortBy('-discount')">Скидки max</p>
+
+                <p class="checkbox-text m-0" :class="{ activee: selectedSort == 4 }"
+                    @click="selectedSort = 4, sortBy('discount')">Скидки min</p>
+
 
                 <div class="price">
                     <h2>цена</h2>
@@ -44,6 +41,8 @@
                         <input type="number" name="to" id="to" placeholder="до ₸" v-model="maxPrice" @input="applyFilters">
                     </div>
                 </div>
+
+                <button @click="getCatalog()">Сбросить</button>
             </div>
         </div>
 
@@ -91,6 +90,8 @@ export default {
         getCatalog() {
             const queryParams = new URLSearchParams(window.location.search);
             const categoryParam = queryParams.get('category');
+            this.selectedSort = 0
+            this.sort = false
 
 
 
@@ -418,6 +419,13 @@ useSeoMeta({
             padding: 20px;
             margin-top: 30px;
 
+            button {
+                margin-top: 20px;
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+
             .price {
                 h2 {
                     font-size: 20px;
@@ -452,6 +460,21 @@ useSeoMeta({
                         color: #000;
                     }
                 }
+            }
+
+            .activee {
+                font-weight: 600 !important;
+            }
+
+            p {
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-transform: uppercase;
+                font-family: var(--int);
+                margin: 0 0 22px !important;
+                cursor: pointer;
             }
 
             label {
