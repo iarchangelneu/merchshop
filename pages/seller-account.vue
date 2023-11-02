@@ -110,10 +110,8 @@
                             </label>
                             <input type="file" id="fileInput" ref="fileInput" accept="image/*"
                                 style="display: none !important;" @change="handleFileChange">
-                            <!-- Используем avatarUrl для отображения выбранного изображения или дефолтного изображения -->
                             <img :src="avatarUrl" alt="" loading="lazy">
                         </div>
-
                     </div>
                     <div class="data">
                         <label for="name">Отображаемое Имя</label>

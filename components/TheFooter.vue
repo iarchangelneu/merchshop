@@ -12,7 +12,13 @@
         <div class="netrap">
             <NuxtLink to="/polytics">политика конфиденциальности</NuxtLink>
             <NuxtLink to="/terms">пользовательское соглашение</NuxtLink>
-            <small>2023 © merchshop</small>
+            <small>ТОО «DVA TRANS(ДВА ТРАНС)
+
+                БИН 210940016230, Казахстан, город Алматы, Алмалинский район,
+
+                Проспект Райымбека, дом 212/20, почтовый индекс
+
+                050000</small>
         </div>
     </footer>
 </template>
@@ -82,6 +88,7 @@ footer {
             font-style: normal;
             font-weight: 500;
             line-height: 130%;
+            max-width: 700px;
             /* 20.8px */
             text-transform: uppercase;
             font-family: var(--int);
